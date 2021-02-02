@@ -6,6 +6,8 @@ const csrf = require('csurf');
 const csrfProtection = csrf({cookie:true});
 const bcrypt = require('bcryptjs');
 const { User } = require('../db/models');
+// const { loginUser } = require('../auth');
+
 
 const validateUsername =
   check("username")
@@ -28,15 +30,17 @@ router.get("/", (req, res) => {
 });
 
 
-router.post('/', 
-  csrfProtection, 
-  validateUsername, 
-  validateEmailAndPassword, 
-  handleValidationErrors, 
+router.post('/',
+  csrfProtection,
+  validateUsername,
+  validateEmailAndPassword,
+  handleValidationErrors,
   asyncHandler(async (req, res) => {
     const { username, email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({ username, email, hashedPassword });
+    //console.log(user.id)
+    // loginUser(req, res, user);
     res.redirect('/')
 }))
 
