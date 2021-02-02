@@ -1,6 +1,7 @@
 const router = require('express').Router()
+const { requireAuth } = require('../auth')
 
-router.get('/', (req, res) => {
+router.get('/', requireAuth, (req, res) => {
 	res.render('questions')
 })
 

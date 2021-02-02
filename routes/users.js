@@ -6,7 +6,7 @@ const csrf = require('csurf')
 const csrfProtection = csrf({ cookie: true })
 const bcrypt = require('bcryptjs')
 const { User } = require('../db/models')
-const { loginUser, logoutUser } = require('../auth')
+const { loginUser, logoutUser, requireAuth } = require('../auth')
 
 const validateUsername = check('username').exists({ checkFalsy: true }).withMessage('Please provide a username')
 
@@ -24,6 +24,7 @@ router.post(
 	validateUsername,
 	validateEmailAndPassword,
 	handleValidationErrors,
+	requireAuth,
 	asyncHandler(async (req, res) => {
 		const { username, email, password } = req.body
 		const hashedPassword = await bcrypt.hash(password, 10)
@@ -39,6 +40,7 @@ router.post(
 	validateUsername,
 	validatePassword,
 	handleValidationErrors,
+	requireAuth,
 	asyncHandler(async (req, res) => {
 		const { username, password } = req.body
 
@@ -54,20 +56,20 @@ router.post(
 	})
 )
 
-router.post(
+router.get(
 	'/demo',
 	csrfProtection,
+	requireAuth,
 	asyncHandler(async (req, res) => {
 		const user = await User.findOne({ where: { username: 'demo' } })
 		loginUser(req, res, user)
-		res.redirect('/')
+		res.redirect('/questions')
 	})
 )
 
-router.post('/logout', (req, res) => {
-	logoutUser(req, res);
-	res.redirect('/');
-  });
-
+router.get('/logout', requireAuth, (req, res) => {
+	logoutUser(req, res)
+	res.redirect('/')
+})
 
 module.exports = router
