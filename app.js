@@ -8,6 +8,7 @@ const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const asyncHandler = require('express-async-handler');
 
 const app = express();
 
@@ -32,6 +33,8 @@ app.use(
   })
 );
 
+
+
 // create Session table if it doesn't already exist
 store.sync();
 
@@ -53,5 +56,8 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+app.listen(8080, () => {console.log('Listening on port 8080...')})
 
 module.exports = app;
