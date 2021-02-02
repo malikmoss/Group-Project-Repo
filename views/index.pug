@@ -9,3 +9,13 @@ block content
         input(type='password' name='password' required)
         input(type='hidden' name='_csrf' value=csrfToken)
         button(type='submit') Create Account
+    form(action='/users/login' method='post')
+        label Username
+        input(type='text' name='username' required)
+        label Password
+        input(type='password' name='password' required)
+        input(type='hidden' name='_csrf' value=csrfToken)
+        button(type='submit') Login
+    form(action='/users/demo' method='post')
+        input(type='hidden' name='_csrf' value=csrfToken)
+        button(type='submit') Demo User
