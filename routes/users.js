@@ -6,7 +6,7 @@ const csrf = require('csurf')
 const csrfProtection = csrf({ cookie: true })
 const bcrypt = require('bcryptjs')
 const { User } = require('../db/models')
-const { loginUser } = require('../auth')
+const { loginUser, logoutUser } = require('../auth')
 
 const validateUsername = check('username').exists({ checkFalsy: true }).withMessage('Please provide a username')
 
@@ -48,7 +48,7 @@ router.post(
 			const passwordsMatch = await bcrypt.compare(password, user.hashedPassword.toString())
 			if (passwordsMatch) {
 				loginUser(req, res, user)
-				res.redirect('/')
+				res.redirect('/questions')
 			}
 		}
 	})
@@ -63,5 +63,11 @@ router.post(
 		res.redirect('/')
 	})
 )
+
+router.post('/logout', (req, res) => {
+	logoutUser(req, res);
+	res.redirect('/');
+  });
+
 
 module.exports = router
