@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/malikmoss/Group-Project-Repo#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "connect-session-sequelize": "^7.1.0",
     "cookie-parser": "^1.4.5",
     "csurf": "^1.11.0",
@@ -24,6 +25,7 @@
     "express-async-handler": "^1.1.4",
     "express-bearer-token": "^2.4.0",
     "express-session": "^1.17.1",
+    "express-validator": "^6.9.2",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.5.1",
     "pug": "^2.0.4",
