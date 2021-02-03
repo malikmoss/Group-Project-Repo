@@ -8,16 +8,20 @@
 	display: flex;
 	justify-content: center;
 }
-
+.container > div {
+	background-color: yellow;
+	width: 50%;
+}
 /* Grab all labels in form */
 /* form label {
 	background-color: #fff;
 } */
 
 /* Grab all inputs in form */
-/* form input {
-
-} */
+form input {
+	width: 100%;
+	box-sizing: border-box;
+}
 
 .container__signup {
 	margin-right: 10px;
