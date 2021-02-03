@@ -67,12 +67,14 @@ router.get(
 	})
 )
 
-router.get('/logout',
- restoreUser, // Come back to this
- requireAuth,
-(req, res) => {
-	logoutUser(req, res)
-	res.redirect('/')
-})
+router.get(
+	'/logout',
+	restoreUser, // Come back to this
+	requireAuth,
+	(req, res) => {
+		logoutUser(req, res)
+		res.redirect('/')
+	}
+)
 
 module.exports = router
