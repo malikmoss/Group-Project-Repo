@@ -2,3 +2,6 @@ extends layout
 block content
     include components/navbar
     h1 Questions
+    for que in ques
+        //- p= que.username
+        p= que.body
