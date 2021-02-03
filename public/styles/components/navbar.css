@@ -1,0 +1,48 @@
+.container__navbar {
+	width: 100%;
+	background-color: #fff;
+}
+.navbar {
+	height: 40px;
+	margin: 0 auto;
+	max-width: 600px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.navbar div:not(:first-child) {
+	margin-left: 15px;
+}
+.navbar a,
+.navbar i {
+	text-decoration: none;
+	color: var(--color-primary);
+}
+.navbar__logo {
+	min-width: 85px;
+}
+.navbar__logo > a {
+	font-family: 'Permanent Marker', cursive;
+}
+.navbar__links {
+	min-width: 200px;
+}
+.navbar__links > a {
+	font-size: 20px;
+	margin: 0 15px;
+}
+.navbar__search,
+.navbar__account a {
+	display: flex;
+}
+.navbar__search {
+	padding: 5px;
+	border: 1px solid var(--color-primary);
+	border-radius: 5px;
+}
+.navbar__search > input {
+	margin-left: 5px;
+	width: 100%;
+	border: none;
+	outline: none;
+}

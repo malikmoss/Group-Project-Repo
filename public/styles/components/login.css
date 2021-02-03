@@ -1,0 +1,47 @@
+.container__login {
+	background-color: var(--color-secondary);
+	color: #fff;
+	position: absolute;
+	margin: auto;
+	left: 0;
+	right: 0;
+	top: 23%;
+	width: 40%;
+	box-sizing: border-box;
+	border-radius: 5px;
+	padding: 15px;
+}
+.container__login > :not(:last-child) {
+	text-align: center;
+}
+.container__form {
+	box-sizing: border-box;
+	display: flex;
+	--spacer: 10px;
+	margin: 20px 0;
+}
+.container__form > div {
+	width: 50%;
+	padding-left: 5%
+}
+form input {
+	width: 45%;
+	box-sizing: border-box;
+}
+.container__signup {
+	margin-right: 10px;
+}
+form > div {
+	margin-top: 10px;
+	display: grid;
+}
+.form__signup {
+	padding-right: var(--spacer);
+}
+.form__login {
+	border-left: 1px solid #fff;
+	padding-left: var(--spacer);
+}
+form button {
+	width: 45%
+}

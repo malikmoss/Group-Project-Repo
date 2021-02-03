@@ -1,33 +1,7 @@
-.container {
-	margin: 15% auto;
-
-	width: 40%;
-	padding: 15px;
-	background-color: #55ff55;
-	box-sizing: border-box;
-	display: flex;
-	justify-content: center;
+body {
+    background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)),
+    url("/assets/img.png");
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-color: #000;
 }
-
-/* Grab all labels in form */
-/* form label {
-	background-color: #fff;
-} */
-
-/* Grab all inputs in form */
-/* form input {
-
-} */
-
-.container__signup {
-	margin-right: 10px;
-}
-
-form > div {
-	margin-top: 10px;
-	display: grid;
-}
-/* form button {
-	width: 75%;
-	margin-left: auto;
-} */
