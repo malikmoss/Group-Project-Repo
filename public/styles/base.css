@@ -1,13 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
 
 * {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
 	--color-primary: #5425ff;
+	--color-secondary: #7c7c7cd9;
+
 }
 body {
 	background-color: rgb(229, 228, 238);
-	font-family: 'Montserrat', sans-serif;
+	font-family: 'Quicksand', sans-serif;
 }

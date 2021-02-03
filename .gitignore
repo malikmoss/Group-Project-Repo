@@ -1,3 +1,6 @@
+# duplicate seeder file
+db/seeders/20210203180226-userData.js
+
 # Logs
 logs
 *.log
