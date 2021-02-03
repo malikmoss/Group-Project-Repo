@@ -1,6 +1,12 @@
 extends layout
 block content
-    a(href="/") Home
+    div
+        a(href='/')
+            i.far.fa-home
+            | Home
+        a(href='/')
+            i.far.fa-long-arrow-left
+            | Back
     h2 Whoops, something went wrong...
     h3= message
     p= error
