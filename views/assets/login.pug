@@ -1,0 +1,33 @@
+append head
+    link(rel="stylesheet" href="styles/assets/login.css")
+div.container__form
+    div.form__signup
+        form(action='/users' method='post')
+            div
+                label Username
+                input(type='text' name='username' required)
+            div
+                label Email
+                input(type='email' name='email' required)
+            div
+                label Password
+                input(type='password' name='password' required)
+            div
+                input(type='hidden' name='_csrf' value=csrfToken)
+            div
+                button(type='submit') Create Account
+    div.form__login
+        form(action='/users/login' method='post')
+            div
+                label Username
+                input(type='text' name='username' required)
+            div
+                label Password
+                input(type='password' name='password' required)
+            div
+                input(type='hidden' name='_csrf' value=csrfToken)
+                button(type='submit') Login
+        form(action='/users/demo' method='get')
+            div
+                input(type='hidden' name='_csrf' value=csrfToken)
+                button(type='submit') Demo User
