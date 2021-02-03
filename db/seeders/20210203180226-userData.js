@@ -178,6 +178,13 @@ module.exports = {
       hashedPassword: "$2a$10$79eyLHho5x.a4eki2edGMOC4IfnQIeBC5kT487JypxOQIGd70zglC",
       createdAt: new Date(),
       updatedAt: new Date()
+      },
+      {
+      username: "demo",
+      email: "demo@demo.com",
+      hashedPassword: "$2a$10$79eyLHho5x.a4eki2edGMOC4IfnQIeBC5kT487JypxOQIGd70zglC",
+      createdAt: new Date(),
+      updatedAt: new Date()
       }
     ]
 )},

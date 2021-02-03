@@ -11,7 +11,7 @@ module.exports = {
 
 		function getUserId() {
 			let i = Math.floor(Math.random() * userIds.length);
-			return userIds[i];
+			return userIds[i].id;
 		}
 
 		await queryInterface.bulkInsert(
