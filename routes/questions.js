@@ -1,8 +1,11 @@
 const router = require('express').Router()
-const { requireAuth } = require('../auth')
+const { restoreUser, requireAuth } = require('../auth')
+const { User } = require('../db/models')
 
-router.get('/', requireAuth, (req, res) => {
+router.get('/', restoreUser, requireAuth, (req, res) => {
+	// console.log(req.session.auth.userId)
 	res.render('questions')
 })
+
 
 module.exports = router

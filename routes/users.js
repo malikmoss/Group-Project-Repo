@@ -6,7 +6,7 @@ const csrf = require('csurf')
 const csrfProtection = csrf({ cookie: true })
 const bcrypt = require('bcryptjs')
 const { User } = require('../db/models')
-const { loginUser, logoutUser, requireAuth } = require('../auth')
+const { loginUser, logoutUser, requireAuth, restoreUser } = require('../auth')
 
 const validateUsername = check('username').exists({ checkFalsy: true }).withMessage('Please provide a username')
 
@@ -24,13 +24,13 @@ router.post(
 	validateUsername,
 	validateEmailAndPassword,
 	handleValidationErrors,
-	requireAuth,
+	restoreUser, // Do we need this?
 	asyncHandler(async (req, res) => {
 		const { username, email, password } = req.body
 		const hashedPassword = await bcrypt.hash(password, 10)
 		const user = await User.create({ username, email, hashedPassword })
 		loginUser(req, res, user)
-		res.redirect('/')
+		res.redirect('/questions')
 	})
 )
 
@@ -40,7 +40,7 @@ router.post(
 	validateUsername,
 	validatePassword,
 	handleValidationErrors,
-	requireAuth,
+	restoreUser, // Come back to this
 	asyncHandler(async (req, res) => {
 		const { username, password } = req.body
 
@@ -59,7 +59,7 @@ router.post(
 router.get(
 	'/demo',
 	csrfProtection,
-	requireAuth,
+	restoreUser, // Come back to this
 	asyncHandler(async (req, res) => {
 		const user = await User.findOne({ where: { username: 'demo' } })
 		loginUser(req, res, user)
@@ -67,7 +67,10 @@ router.get(
 	})
 )
 
-router.get('/logout', requireAuth, (req, res) => {
+router.get('/logout',
+ restoreUser, // Come back to this
+ requireAuth,
+(req, res) => {
 	logoutUser(req, res)
 	res.redirect('/')
 })
