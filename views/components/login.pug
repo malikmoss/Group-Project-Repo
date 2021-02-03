@@ -1,0 +1,40 @@
+append head
+    link(rel="stylesheet" href="styles/components/login.css")
+div.container__login
+    h1 queït
+    p welcome to queït
+    div.container__form
+        div.form__signup
+            form(action='/users' method='post')
+                div
+                p new here? sign up
+                div
+                    label username:
+                    input(type='text' name='username' required)
+                div
+                    label email:
+                    input(type='email' name='email' required)
+                div
+                    label password:
+                    input(type='password' name='password' required)
+                div
+                    input(type='hidden' name='_csrf' value=csrfToken)
+                div
+                    button(type='submit') Create Account
+        div.form__login
+            form(action='/users/login' method='post')
+                div
+                    p back again? log in
+                div
+                    label username:
+                    input(type='text' name='username' required)
+                div
+                    label password:
+                    input(type='password' name='password' required)
+                div
+                    input(type='hidden' name='_csrf' value=csrfToken)
+                    button(type='submit') Login
+            form(action='/users/demo' method='get')
+                div
+                    input(type='hidden' name='_csrf' value=csrfToken)
+                    button(type='submit') Demo User
