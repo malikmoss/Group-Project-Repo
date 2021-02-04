@@ -1,17 +1,17 @@
 append head
     link(rel="stylesheet" href="styles/components/navbar.css")
-div.container__navbar
-    div.navbar
-        div.navbar__logo
+.container__navbar
+    .navbar
+        .navbar__logo
             a(href='/'): h2 Que-It
-        div.navbar__links
+        .navbar__links
             a(href='/'): i.far.fa-home
             a(href='/follows'): i.far.fa-address-book
             a(href='answers'): i.far.fa-edit
             a(href='/notifications'): i.far.fa-bell
-        div.navbar__search
+        .navbar__search
             i.far.fa-search
             input(type='text' placeholder="Search Que-It")
-        div.navbar__account
+        .navbar__account
             a(href='/users/logout') Logout
                 i.far.fa-sign-out
