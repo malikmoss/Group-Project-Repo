@@ -17,7 +17,7 @@ router.get(
 		const data = {
 			ques,
 		}
-		res.render('questions', data)
+		res.render('home', data)
 	})
 )
 
