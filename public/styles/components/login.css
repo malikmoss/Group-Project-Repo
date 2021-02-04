@@ -1,3 +1,7 @@
+html,
+body {
+	height: 100%;
+}
 .container__login {
 	background-color: var(--color-secondary);
 	color: #fff;
@@ -22,7 +26,7 @@
 }
 .container__form > div {
 	width: 50%;
-	padding-left: 5%
+	padding-left: 5%;
 }
 form input {
 	width: 45%;
@@ -43,5 +47,5 @@ form > div {
 	padding-left: var(--spacer);
 }
 form button {
-	width: 45%
+	width: 45%;
 }
