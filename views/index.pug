@@ -1,10 +1,18 @@
 extends layout
 append head
-    link(rel="stylesheet", href="styles/index.css")
+    link(rel="stylesheet" href="styles/index.css")
 block content
     include components/login
-
     //- if authenticated
-    //-     include questions
+    //-     include components/navbar
+    //-     .container__main
+    //-         //- include components/interests
+    //-         include components/questions
+    //-         //- include components/popular
     //- else
     //-     include components/login
+
+
+
+
+

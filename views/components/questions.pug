@@ -1,8 +1,9 @@
-.container__main
-    .container__interests
-    .container__ques
-        h1 Questions
-        for que in ques
+.container__questions
+    h1 Questions
+    for que in ques
+        div(id=questionId).container__que
             p= que.username
             p= que.body
-    .container__popular
+            button Edit
+            button Delete
+
