@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const { asyncHandler } = require('../utils')
 const { restoreUser, requireAuth } = require('../auth')
-const { User, Que } = require('../db/models')
+const { User, Que, Answer } = require('../db/models')
 
 router.get(
 	'/',
@@ -21,6 +21,23 @@ router.get(
 	})
 )
 //GET localhost:8080/questions/:id
+router.get(
+'/:id(\\d+)',
+restoreUser,
+requireAuth,
+asyncHandler(async (req, res) => {
+	const id = Number(req.params.id);
+	const que = await Que.findByPk(id);
+	const answers = await Answer.findAll({
+		where: {
+			questionId: id
+		},
+		attributes: ['id', 'questionId','authorId', 'body', 'createdAt']
+	})
+
+	res.render('que', { title: que.body, que, answers });
+}));
+
 //GET localhost:8080/questions/
 //POST localhost:8080/questions/
 router.post(

@@ -1,0 +1,16 @@
+extends layout.pug
+block content
+  include components/navbar
+  .container__main
+    div(id=`que-${que.id}`).container__que
+      p= que.username
+      p= que.body
+      button.edit-que Edit
+      button.delete-que Delete
+  div
+    for ans in answers
+      div
+        p Posted on #{ans.createdAt}
+        p= ans.body
+
+
