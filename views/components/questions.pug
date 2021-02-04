@@ -1,7 +1,7 @@
 .container__questions
     h1 Questions
     for que in ques
-        div(id=questionId).container__que
+        div(id=que.id).container__que
             p= que.username
             p= que.body
             button Edit

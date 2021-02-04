@@ -12,10 +12,9 @@ router.get(
 		const quesQuery = await Que.findAll({
 			include: [{ model: User, attributes: ['username'] }],
 			order: [['createdAt', 'DESC']],
-			attributes: ['body'],
+			attributes: ['body', 'id'],
 		})
-
-		const ques = quesQuery.map(que => ({ username: que.User.username, body: que.body }))
+		const ques = quesQuery.map(que => ({ id: que.id, username: que.User.username, body: que.body }))
 		const data = {
 			ques,
 		}
