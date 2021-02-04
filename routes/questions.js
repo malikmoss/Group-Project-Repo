@@ -20,15 +20,18 @@ router.get(
 		res.render('home', data)
 	})
 )
-//GET localhost:8080/questions/:id
-//GET localhost:8080/questions/
-//POST localhost:8080/questions/
+
 router.post(
 	'/',
 	restoreUser,
 	requireAuth,
 	asyncHandler(async (req, res) => {
-		const newQue = await Que.create({ authorId: 'FIX', body })
+		console.log('TEST')
+		console.log(req)
+		// const newQue = await Que.create({
+		// authorId: res.locals.user.id,
+		// body:  )
+		res.json(quesQuery)
 	})
 )
 

@@ -1,6 +1,6 @@
 .container__questions
     .container__ask
-        input(type="text")
+        input(type="text").new-question
         button.add-que Add to queue
     for que in ques
         div(id=`que-${que.id}`).container__que
