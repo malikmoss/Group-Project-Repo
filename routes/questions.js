@@ -8,7 +8,6 @@ router.get(
 	restoreUser,
 	requireAuth,
 	asyncHandler(async (req, res) => {
-		// console.log(req.session.auth.userId) Get userid to display account info
 		const quesQuery = await Que.findAll({
 			include: [{ model: User, attributes: ['username'] }],
 			order: [['createdAt', 'DESC']],
@@ -18,7 +17,7 @@ router.get(
 		const data = {
 			ques,
 		}
-		res.render('questions', data)
+		res.render('home', data)
 	})
 )
 

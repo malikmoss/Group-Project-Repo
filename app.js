@@ -9,7 +9,6 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store)
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
 const quesRouter = require('./routes/questions')
-const asyncHandler = require('express-async-handler')
 
 const app = express()
 
