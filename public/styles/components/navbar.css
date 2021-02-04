@@ -5,7 +5,7 @@
 .navbar {
 	height: 40px;
 	margin: 0 auto;
-	max-width: 600px;
+	max-width: var(--size-max-width);
 	display: flex;
 	align-items: center;
 	justify-content: space-between;

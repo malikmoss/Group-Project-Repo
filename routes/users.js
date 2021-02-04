@@ -14,10 +14,6 @@ const validateEmailAndPassword = [check('email').exists({ checkFalsy: true }).is
 
 const validatePassword = check('password').exists({ checkFalsy: true }).withMessage('Please provide a password.')
 
-router.get('/', (req, res) => {
-	res.render('login')
-})
-
 router.post(
 	'/',
 	csrfProtection,
@@ -30,11 +26,11 @@ router.post(
 		const hashedPassword = await bcrypt.hash(password, 10)
 		const user = await User.create({ username, email, hashedPassword })
 		loginUser(req, res, user)
-		res.redirect('/questions')
+		res.redirect('/')
 	})
 )
 
-router.post(
+router.get(
 	'/login',
 	csrfProtection,
 	validateUsername,

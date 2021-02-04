@@ -1,0 +1,11 @@
+.container__questions
+    .container__ask
+        input(type="text")
+        button.add-que Add to queue
+    for que in ques
+        div(id=`que-${que.id}`).container__que
+            p= que.username
+            p= que.body
+            button.edit-que Edit
+            button.delete-que Delete
+
