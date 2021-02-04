@@ -27,14 +27,19 @@ restoreUser,
 requireAuth,
 asyncHandler(async (req, res) => {
 	const id = Number(req.params.id);
-	const que = await Que.findByPk(id);
+	const que = await Que.findByPk(id, { include: [{
+		model: User,
+		attributes: ['username']}
+	]});
 	const answers = await Answer.findAll({
 		where: {
 			questionId: id
 		},
-		attributes: ['id', 'questionId','authorId', 'body', 'createdAt']
+		attributes: ['body', 'createdAt'],
+		include: [{model: User, attributes: ['username']}]
 	})
 
+	// res.send([answers, que])
 	res.render('que', { title: que.body, que, answers });
 }));
 
