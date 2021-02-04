@@ -4,8 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node dotenv app.js",
-    "test": "nodemon dotenv app.js"
+    "start": "per-env",
+    "start:development": "nodemon -r dotenv/config ./bin/www",
+    "start:production": "node ./bin/www"
   },
   "repository": {
     "type": "git",
@@ -29,13 +30,14 @@
     "express-session": "^1.17.1",
     "express-validator": "^6.9.2",
     "jsonwebtoken": "^8.5.1",
+    "per-env": "^1.0.2",
     "pg": "^8.5.1",
     "pug": "^2.0.4",
-    "sequelize": "^6.5.0",
-    "sequelize-cli": "^6.2.0"
+    "sequelize": "^5.22.3",
+    "sequelize-cli": "^5.5.1",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "morgan": "^1.10.0",
     "nodemon": "^2.0.7"
   }
 }
