@@ -1,28 +1,26 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Votes', {
+    return queryInterface.createTable('Answers', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      isUpvote: {
-        allowNull: false,
-        type: Sequelize.BOOLEAN
-      },
       questionId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        unique: 'votes_unique',
-        references:  { model: 'Ques' }
+        references: { model: 'Ques'}
       },
-      userId: {
+      authorId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        unique: 'votes_unique',
-        references: { model: 'Users' }
+        references: { model: 'Users'}
+      },
+      body: {
+        allowNull: false,
+        type: Sequelize.TEXT,
       },
       createdAt: {
         allowNull: false,
@@ -32,13 +30,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    }, {
-      uniqueKeys: {
-        votes_unique: {fields: ['questionId', 'userId']}
-      }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Votes');
+    return queryInterface.dropTable('Answers');
   }
 };
