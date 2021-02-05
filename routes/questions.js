@@ -6,7 +6,7 @@ const { User, Que, Answer } = require('../db/models')
 router.get(
 	'/',
 	restoreUser,
-	//requireAuth,
+	requireAuth,
 	asyncHandler(async (req, res) => {
 		const quesQuery = await Que.findAll({
 			include: [{ model: User, attributes: ['username', 'id'] }],
@@ -22,28 +22,32 @@ router.get(
 )
 //GET localhost:8080/questions/:id
 router.get(
-'/:id(\\d+)',
-restoreUser,
-requireAuth,
-asyncHandler(async (req, res) => {
-	const id = Number(req.params.id);
-	const que = await Que.findByPk(id, { include: [{
-		model: User,
-		attributes: ['username']}
-	]});
-	const answers = await Answer.findAll({
-		where: {
-			questionId: id
-		},
-		attributes: ['body', 'createdAt'],
-		include: [{model: User, attributes: ['username']}]
+	'/:id(\\d+)',
+	restoreUser,
+	requireAuth,
+	asyncHandler(async (req, res) => {
+		const id = Number(req.params.id)
+		const que = await Que.findByPk(id, {
+			include: [
+				{
+					model: User,
+					attributes: ['username'],
+				},
+			],
+		})
+		const answers = await Answer.findAll({
+			where: {
+				questionId: id,
+			},
+			attributes: ['body', 'createdAt'],
+			include: [{ model: User, attributes: ['username'] }],
+		})
+
+		// res.send([answers, que])
+		res.render('que', { title: que.body, que, answers })
 	})
+)
 
-	// res.send([answers, que])
-	res.render('que', { title: que.body, que, answers });
-}));
-
-//GET localhost:8080/questions/
 //POST localhost:8080/questions/
 router.post(
 	'/',
@@ -61,8 +65,22 @@ router.post(
 		res.json(data)
 	})
 )
+//PATCH localhost:8080/questions/:id
+router.patch(
+	'/:id',
+	restoreUser,
+	requireAuth,
+	asyncHandler(async (req, res) => {
+		const que = await Que.findByPk(req.params.id)
+		que.body = req.body.newQue
+		await que.save()
+		res.json()
+	})
+)
 router.delete(
 	'/:id',
+	restoreUser,
+	requireAuth,
 	asyncHandler(async (req, res) => {
 		;(await Que.findByPk(req.params.id)).destroy()
 		res.json()
