@@ -38,15 +38,13 @@ router.get(
 				ansAuthor: answer.User.username,
 				ansBody: answer.body,
 			}))
-
 			ques.push({ queId, queAuthorId, queAuthor, queBody, answers, numUpvotes, numDownvotes })
 		}
-
 		ques.sort((a, b) => b.numUpvotes - a.numUpvotes)
 
+		res.render('home', { ques })
 		// res.send(quesQuery);
 		// res.send(ques)
-		res.render('home', { ques })
 		// const ques = quesQuery.map(que => ({ id: que.id, authorId: que.User.id, author: que.User.username, body: que.body }))
 		// const data = {
 		// 	ques,
@@ -54,6 +52,7 @@ router.get(
 		// res.render('home', data)
 	})
 )
+
 //GET localhost:8080/questions/:id
 router.get(
 	'/:id(\\d+)',
