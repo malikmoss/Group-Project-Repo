@@ -55,8 +55,8 @@ window.addEventListener('DOMContentLoaded', () => {
 					const bodyHTML = document.createElement('div')
 					bodyHTML.classList.add('que__body')
 
-					const bodyTextHTML = document.createElement('p')
-					bodyTextHTML.innerHTML = `<b>${question.body}</b>`
+					const bodyTextHTML = document.createElement('b')
+					bodyTextHTML.innerHTML = question.body
 
 					bodyHTML.append(bodyTextHTML)
 
@@ -80,13 +80,39 @@ window.addEventListener('DOMContentLoaded', () => {
 	}
 	//Save changes Event Listener
 	function updateQue(e) {
-		const editButton = e.target
-		const deleteButton = e.path[1].children[1]
+		const question = e.path[3].children[1]
+		const newQue = question.children[0].value
+
+		fetch(`/questions/${e.path[3].id.slice(4)}`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ newQue }),
+		}).then(res => {
+			if (res.status === 200) {
+				const editButton = e.target
+				const deleteButton = e.path[1].children[1]
+				toggleIcons(editButton, deleteButton)
+
+				question.innerHTML = question.innerHTML.replace(/textarea>/g, 'b>')
+				question.children[0].innerHTML = newQue
+
+				editButton.title = 'Edit Question'
+				editButton.removeEventListener('click', updateQue)
+				editButton.addEventListener('click', editQue)
+
+				deleteButton.title = 'Delete Question'
+				deleteButton.removeEventListener('click', cancelQue)
+				deleteButton.addEventListener('click', deleteQue)
+			}
+		})
 	}
 	//Cancel changes Event Listener
 	function cancelQue(e) {
 		const deleteButton = e.target
 		const editButton = e.path[1].children[0]
+		const question = e.path[3].children[1]
 
 		toggleIcons(editButton, deleteButton)
 
@@ -97,11 +123,14 @@ window.addEventListener('DOMContentLoaded', () => {
 		deleteButton.title = 'Delete Question'
 		deleteButton.removeEventListener('click', cancelQue)
 		deleteButton.addEventListener('click', deleteQue)
+
+		question.innerHTML = question.innerHTML.replace(/textarea>/g, 'b>')
 	}
 	//Edit a Que Event Listener
 	function editQue(e) {
 		const editButton = e.target
 		const deleteButton = e.path[1].children[1]
+		const question = e.path[3].children[1]
 
 		toggleIcons(editButton, deleteButton)
 
@@ -113,8 +142,6 @@ window.addEventListener('DOMContentLoaded', () => {
 		deleteButton.removeEventListener('click', deleteQue)
 		deleteButton.addEventListener('click', cancelQue)
 
-		const question = e.path[3].children[1]
-		console.log(question.children)
 		question.innerHTML = question.innerHTML.replace(/b>/g, 'textarea>')
 
 		const id = e.path[1].id.slice(4)
