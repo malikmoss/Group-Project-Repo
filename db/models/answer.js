@@ -7,9 +7,10 @@ module.exports = (sequelize, DataTypes) => {
   }, {indexes: [{unique: true, fields: ['questionId', 'authorId']}]});
   Answer.associate = function(models) {
     // associations can be defined here
+    Answer.belongsTo(models.User, { foreignKey: 'authorId' });
     Answer.belongsTo(models.Que, { foreignKey: 'questionId' });
     Answer.hasMany(models.Vote, { foreignKey: 'answerId' });
-    
+
   };
   return Answer;
 };

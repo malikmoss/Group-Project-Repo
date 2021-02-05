@@ -1,0 +1,20 @@
+extends layout.pug
+block head
+  link(rel="stylesheet" href="/styles/que.css")
+block content
+  include components/navbar
+  .container__main
+    div(id=`que-${que.id}`).container__que
+      p Posted by #{que.User.username}
+      p= que.username
+      p= que.body
+      button.edit-que Edit
+      button.delete-que Delete
+  div
+    for ans in answers
+      div
+        p Posted by #{ans.User.username}
+        p on #{ans.createdAt}
+        p= ans.body
+
+
