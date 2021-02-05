@@ -6,7 +6,7 @@ const { User, Que, Answer } = require('../db/models')
 router.get(
 	'/',
 	restoreUser,
-	requireAuth,
+	//requireAuth,
 	asyncHandler(async (req, res) => {
 		const quesQuery = await Que.findAll({
 			include: [{ model: User, attributes: ['username', 'id'] }],

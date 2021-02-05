@@ -26,7 +26,7 @@ router.post(
 		const hashedPassword = await bcrypt.hash(password, 10)
 		const user = await User.create({ username, email, hashedPassword })
 		loginUser(req, res, user)
-		res.redirect('/')
+		res.redirect('/questions')
 	})
 )
 
@@ -45,6 +45,7 @@ router.post(
 		if (user !== null) {
 			const passwordsMatch = await bcrypt.compare(password, user.hashedPassword.toString())
 			if (passwordsMatch) {
+
 				loginUser(req, res, user)
 				res.redirect('/questions')
 			}
