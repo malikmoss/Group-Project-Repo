@@ -1,11 +1,16 @@
 .container__questions
     .container__ask
         input(type="text").new-question
-        button.add-que Add to queue
-    for que in ques
-        div(id=`que-${que.id}`).container__que
-            p= que.username
-            p= que.body
-            button.edit-que Edit
-            button.delete-que Delete
+        button.que__add Add to queue
+    .container__que-list
+        for que in ques
+            div(id=`que-${que.id}`).que
+                .que__user
+                    p by #{que.author}
+                    if que.authorId == user.id
+                        .que__buttons
+                            i(title='Edit Question').far.fa-edit.que__edit
+                            i(title='Delete Question').far.fa-trash-alt.que__delete
+                .que__body
+                    b= que.body
 
