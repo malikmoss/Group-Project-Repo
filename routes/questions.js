@@ -25,7 +25,7 @@ router.get(
 			attributes: ['body', 'id'],
 		})
 
-		const arr = [];
+		const ques = [];
 
 		for (let que of quesQuery) {
 			const
@@ -42,13 +42,15 @@ router.get(
 				ansBody: answer.body,
 			}));
 
-			arr.push({queId, queAuthorId, queAuthor, queBody, answers, numUpvotes, numDownvotes});
+			ques.push({queId, queAuthorId, queAuthor, queBody, answers, numUpvotes, numDownvotes});
 		}
 
-		arr.sort((a, b) => b.numUpvotes - a.numUpvotes);
+		ques.sort((a, b) => b.numUpvotes - a.numUpvotes);
+
 
 		// res.send(quesQuery);
-		res.send(arr);
+		// res.send(ques)
+		res.render('components/questions', {ques});
 		// const ques = quesQuery.map(que => ({ id: que.id, authorId: que.User.id, author: que.User.username, body: que.body }))
 		// const data = {
 		// 	ques,
