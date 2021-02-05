@@ -30,7 +30,7 @@ router.post(
 	})
 )
 
-router.get(
+router.post(
 	'/login',
 	csrfProtection,
 	validateUsername,
