@@ -16,6 +16,7 @@ body {
 	box-sizing: border-box;
 	border-radius: 5px;
 	padding: 15px 15px 50px 15px;
+	min-width: 575px;
 }
 
 .container__login > :not(:last-child) {
@@ -40,9 +41,6 @@ form input {
 	margin-top: 5px;
 	color: white;
 }
-/* .container__signup {
-    margin-right: 10px;
-} */
 
 form > div {
 	margin-top: 5px;

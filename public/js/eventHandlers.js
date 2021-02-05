@@ -1,15 +1,8 @@
 window.addEventListener('DOMContentLoaded', () => {
-	document.querySelector('.add-que').addEventListener('click', () => {
-		fetch('/questions')
-	})
-	document.querySelectorAll('.edit-que').forEach(b => {
-		b.addEventListener('click', e => {
-			const id = e.path[1].id.slice(4)
+	const back = document.querySelector('.button__back')
+	if (back) {
+		back.addEventListener('click', () => {
+			history.go(-1)
 		})
-	})
-	document.querySelectorAll('.delete-que').forEach(b => {
-		b.addEventListener('click', e => {
-			const id = e.path[1].id.slice(4)
-		})
-	})
+	}
 })

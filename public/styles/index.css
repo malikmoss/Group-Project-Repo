@@ -1,4 +1,4 @@
-body {
+.body__login {
 	background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.9)), url('/assets/img.png');
 	background-size: cover;
 	background-repeat: no-repeat;
