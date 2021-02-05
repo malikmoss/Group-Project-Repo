@@ -10,47 +10,43 @@ router.get(
 	requireAuth,
 	asyncHandler(async (req, res) => {
 		const quesQuery = await Que.findAll({
-			include:[
+			include: [
 				{ model: User, attributes: ['username', 'id'] },
 				{
 					model: Answer,
 					attributes: ['authorId', 'body'],
-					include: [
-						{ model: User, attributes: ['username'] }
-					]
+					include: [{ model: User, attributes: ['username'] }],
 				},
-				Vote
+				Vote,
 			],
 			order: [['createdAt', 'DESC']],
 			attributes: ['body', 'id'],
 		})
 
-		const ques = [];
+		const ques = []
 
 		for (let que of quesQuery) {
-			const
-			queBody = que.body,
-			queId = que.id,
-			queAuthor = que.User.username,
-			queAuthorId = que.User.id;
-			let numUpvotes = que.Votes.filter(vote => vote.isUpVote === true).length;
-			let numDownvotes = que.Votes.filter(vote => vote.isUpVote === false).length;
+			const queBody = que.body,
+				queId = que.id,
+				queAuthor = que.User.username,
+				queAuthorId = que.User.id
+			let numUpvotes = que.Votes.filter(vote => vote.isUpVote === true).length
+			let numDownvotes = que.Votes.filter(vote => vote.isUpVote === false).length
 
 			const answers = que.Answers.map(answer => ({
 				ansAuthorId: answer.authorId,
 				ansAuthor: answer.User.username,
 				ansBody: answer.body,
-			}));
+			}))
 
-			ques.push({queId, queAuthorId, queAuthor, queBody, answers, numUpvotes, numDownvotes});
+			ques.push({ queId, queAuthorId, queAuthor, queBody, answers, numUpvotes, numDownvotes })
 		}
 
-		ques.sort((a, b) => b.numUpvotes - a.numUpvotes);
-
+		ques.sort((a, b) => b.numUpvotes - a.numUpvotes)
 
 		// res.send(quesQuery);
 		// res.send(ques)
-		res.render('components/questions', {ques});
+		res.render('home', { ques })
 		// const ques = quesQuery.map(que => ({ id: que.id, authorId: que.User.id, author: que.User.username, body: que.body }))
 		// const data = {
 		// 	ques,
