@@ -20,9 +20,6 @@ router.get(
 		res.render('home', data)
 	})
 )
-<<<<<<< HEAD
-
-=======
 //GET localhost:8080/questions/:id
 router.get(
 '/:id(\\d+)',
@@ -48,7 +45,6 @@ asyncHandler(async (req, res) => {
 
 //GET localhost:8080/questions/
 //POST localhost:8080/questions/
->>>>>>> main
 router.post(
 	'/',
 	restoreUser,
