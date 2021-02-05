@@ -1,0 +1,15 @@
+/* Universal Styles */
+@import url('/styles/base.css');
+
+/* Components */
+@import url('/styles/components/login.css');
+@import url('/styles/components/navbar.css');
+@import url('/styles/components/questions.css');
+
+/* Pages */
+@import url('/styles/home.css');
+@import url('/styles/index.css');
+
+/*  External Sources*/
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
