@@ -9,17 +9,20 @@ router.get(
 	requireAuth,
 	asyncHandler(async (req, res) => {
 		const quesQuery = await Que.findAll({
-			include: [{ model: User, attributes: ['username'] }],
+			include: [{ model: User, attributes: ['username', 'id'] }],
 			order: [['createdAt', 'DESC']],
 			attributes: ['body', 'id'],
 		})
-		const ques = quesQuery.map(que => ({ id: que.id, username: que.User.username, body: que.body }))
+		const ques = quesQuery.map(que => ({ id: que.id, authorId: que.User.id, author: que.User.username, body: que.body }))
 		const data = {
 			ques,
 		}
 		res.render('home', data)
 	})
 )
+<<<<<<< HEAD
+
+=======
 //GET localhost:8080/questions/:id
 router.get(
 '/:id(\\d+)',
@@ -45,12 +48,28 @@ asyncHandler(async (req, res) => {
 
 //GET localhost:8080/questions/
 //POST localhost:8080/questions/
+>>>>>>> main
 router.post(
 	'/',
 	restoreUser,
 	requireAuth,
 	asyncHandler(async (req, res) => {
-		const newQue = await Que.create({ authorId: 'FIX', body })
+		const question = await Que.create({
+			authorId: res.locals.user.id,
+			body: req.body.question,
+		})
+		const data = {
+			author: res.locals.user.username,
+			question,
+		}
+		res.json(data)
+	})
+)
+router.delete(
+	'/:id',
+	asyncHandler(async (req, res) => {
+		;(await Que.findByPk(req.params.id)).destroy()
+		res.json()
 	})
 )
 

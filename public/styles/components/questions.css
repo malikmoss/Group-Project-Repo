@@ -1,3 +1,25 @@
-.container__que {
+body {
+	background-color: #efefef;
+}
+.que {
+	border-radius: 5px;
+	background-color: #fff;
 	margin: 10px 0;
+	padding: 10px;
+	box-shadow: 0 1px 2px #00000055;
+}
+.que__user {
+	display: flex;
+	justify-content: space-between;
+}
+.que__edit {
+	color: var(--color-primary);
+}
+.que__delete {
+	margin-left: 10px;
+	color: #f00000;
+}
+.que__edit:hover,
+.que__delete:hover {
+	cursor: pointer;
 }
