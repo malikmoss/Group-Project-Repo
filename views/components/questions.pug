@@ -1,23 +1,30 @@
 .container__questions
-    .container__ask
+    .questions__ask
         input(type="text").new-question
         button.que__add Add to queue
-    .container__que-list
+    .questions__que-list
         for que in ques
             div(id=`que-${que.queId}`).que
-                .que__user
-                    //- p Asked by #{que.queAuthor}
-                    if que.authorId == user.id
+                if que.answers[0]
+                    .que__user
+                        p Answered by <b>#{que.answers[0].ansAuthor}</b>
+                .que__body
+                    a(href=`questions/${que.queId}`): b= que.queBody
+
+                if que.answers[0]
+                    .que__answer
+                        p= que.answers[0].ansBody
+
+                .que__controls
+                    .que__votes
+                        div(title='Upvote').que__upvote
+                            i.far.fa-music
+                                p.upClick= que.numUpvotes
+                        div(title='Downvote').que__downvote
+                            i.far.fa-music-slash
+                                p.downClick= que.numDownvotes
+
+                    if que.queAuthorId == user.id
                         .que__buttons
                             i(title='Edit Question').far.fa-edit.que__edit
                             i(title='Delete Question').far.fa-trash-alt.que__delete
-                .que__body
-                    a(href=`questions/${que.queId}`): b= que.queBody
-                    for answer in que.answers
-                        .que__answer
-                            p Answered by #{answer.ansAuthor}
-                            p= answer.ansBody
-
-                .que__vote
-                    p= que.numUpvotes
-                    p= que.numDownvotes

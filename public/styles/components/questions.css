@@ -23,3 +23,59 @@ body {
 .que__delete:hover {
 	cursor: pointer;
 }
+
+.que__controls,
+.que__votes,
+.que__upvote,
+.que__downvote {
+	display: flex;
+	align-items: center;
+}
+.que__body a {
+	color: black;
+	text-decoration: none;
+}
+.que__body a:hover {
+	text-decoration: underline;
+}
+.que__votes {
+	margin-top: 8px;
+}
+.que__votes i {
+	display: flex;
+}
+.que__votes p {
+	margin-left: 4px;
+}
+.que__upvote,
+.que__downvote {
+	padding: 8px;
+	background-color: #efefef;
+}
+.que__upvote {
+	border-radius: 20px 0 0 20px;
+}
+.que__upvote:hover {
+	cursor: pointer;
+	background-color: #aaffaa;
+}
+.que__upvote.active {
+	background-color: #44ff44;
+}
+.que__downvote {
+	border-left: 1px solid #dedede;
+	border-radius: 0 20px 20px 0;
+}
+.que__downvote:hover {
+	cursor: pointer;
+	background-color: #ffaaaa;
+}
+.que__downvote.active {
+	background-color: #ff4444;
+}
+i {
+	font-size: 14px;
+}
+.que__buttons {
+	margin-left: auto;
+}
