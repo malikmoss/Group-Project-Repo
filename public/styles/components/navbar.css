@@ -1,7 +1,7 @@
 .container__navbar {
 	width: 100%;
 	background-color: #fff;
-	position: sticky;
+	position: fixed;
 	top: 0;
 }
 .navbar {
