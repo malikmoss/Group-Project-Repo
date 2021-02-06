@@ -41,10 +41,17 @@
 	padding: 5px;
 	border: 1px solid var(--color-primary);
 	border-radius: 5px;
+	width: 30%;
 }
 .navbar__search > input {
 	margin-left: 5px;
 	width: 100%;
 	border: none;
 	outline: none;
+}
+.navbar__account i {
+	margin-left: 5px;
+}
+.navbar__account {
+	min-width: 70px;
 }
