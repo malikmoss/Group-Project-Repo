@@ -2,7 +2,6 @@ const router = require('express').Router()
 const { asyncHandler } = require('../utils')
 const { restoreUser, requireAuth } = require('../auth')
 const { User, Que, Answer, Vote } = require('../db/models')
-const vote = require('../db/models/vote')
 
 router.get(
 	'/',

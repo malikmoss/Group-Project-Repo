@@ -6,16 +6,16 @@
         for que in ques
             div(id=`que-${que.queId}`).que
                 .que__user
-                    p by #{que.queAuthor}
+                    //- p Asked by #{que.queAuthor}
                     if que.authorId == user.id
                         .que__buttons
                             i(title='Edit Question').far.fa-edit.que__edit
                             i(title='Delete Question').far.fa-trash-alt.que__delete
                 .que__body
-                    b= que.queBody
+                    a(href=`questions/${que.queId}`): b= que.queBody
                     for answer in que.answers
                         .que__answer
-                            p= answer.ansAuthor
+                            p Answered by #{answer.ansAuthor}
                             p= answer.ansBody
 
                 .que__vote
