@@ -63,8 +63,24 @@ router.get(
 			include: [{ model: User, attributes: ['username'] }],
 		})
         res.send([answer, comments])
-		// res.send([answers, que])
 		// res.render('que', { title: que.body, que, answers })
+	})
+)
+
+router.post(
+	'/',
+	restoreUser,
+	requireAuth,
+	asyncHandler(async (req, res) => {
+        console.log(res.locals.user.id)
+        console.log(req.body.answer)
+        console.log(req.body.queId,)
+// 		const answer = await Answer.create({
+//             questionId: req.body.queId,
+//             authorId: res.locals.user.id,
+// 			   body: req.body.answer,
+// 		})
+		res.json()
 	})
 )
 

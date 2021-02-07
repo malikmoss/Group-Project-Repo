@@ -55,9 +55,9 @@ router.get(
 
 		ques.sort((a, b) => (b.numUpvotes / b.numDownvotes) - (a.numUpvotes / a.numDownvotes))
 
-		res.send(ques)
+		// res.send(ques)
 
-		// res.render('home', { ques })
+		res.render('home', { ques })
 		// res.send(quesQuery);
 		// res.send(ques)
 		// const ques = quesQuery.map(que => ({ id: que.id, authorId: que.User.id, author: que.User.username, body: que.body }))
