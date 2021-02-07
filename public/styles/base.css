@@ -2,10 +2,11 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
-	--color-primary: #5425ff;
+	/* --color-primary: #5425ff; */
 	--color-secondary: #7c7c7cd9;
 	--size-max-width: 600px;
 	--size-min-width: 550px;
+	font-family: 'Quicksand', sans-serif;
 }
 body {
 	font-family: 'Quicksand', sans-serif;
@@ -13,4 +14,5 @@ body {
 .container__main {
 	max-width: var(--size-max-width);
 	margin: 40px auto 0 auto;
+	font-family: 'Quicksand', sans-serif;
 }

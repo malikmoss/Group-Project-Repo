@@ -1,27 +1,35 @@
 const router = require('express').Router()
 const { asyncHandler } = require('../utils')
 const { restoreUser, requireAuth } = require('../auth')
-const { User, Que, Answer, Vote } = require('../db/models')
+const { User, Que, Answer, Vote, Comment } = require('../db/models')
 
 router.get(
 	'/',
 	restoreUser,
 	requireAuth,
 	asyncHandler(async (req, res) => {
+
 		const quesQuery = await Que.findAll({
 			include: [
+				// { model: Vote, attributes: ['isUpVote']},
 				{ model: User, attributes: ['username', 'id'] },
 				{
 					model: Answer,
 					attributes: ['authorId', 'body'],
-					include: [{ model: User, attributes: ['username'] }],
+					include: [
+						{ model: User, attributes: ['username'] },
+						{
+							model: Comment,
+							attributes: ['authorId', 'body'],
+							include: [{ model: Answer, attributes: ['authorId'] }],
+						},
+				],
 				},
 				Vote,
 			],
 			order: [['createdAt', 'DESC']],
 			attributes: ['body', 'id'],
 		})
-
 		const ques = []
 
 		for (let que of quesQuery) {
@@ -36,12 +44,20 @@ router.get(
 				ansAuthorId: answer.authorId,
 				ansAuthor: answer.User.username,
 				ansBody: answer.body,
+					comment: answer.Comments.map(comment => ({
+						body: comment.body,
+						authorId: comment.authorId
+				}))
 			}))
-			ques.push({ queId, queAuthorId, queAuthor, queBody, answers, numUpvotes, numDownvotes })
-		}
-		ques.sort((a, b) => b.numUpvotes - a.numUpvotes)
 
-		res.render('home', { ques })
+			ques.push({ queId, queAuthorId, queAuthor, queBody, answers, numUpvotes, numDownvotes})
+		}
+
+		ques.sort((a, b) => (b.numUpvotes / b.numDownvotes) - (a.numUpvotes / a.numDownvotes))
+
+		res.send(ques)
+
+		// res.render('home', { ques })
 		// res.send(quesQuery);
 		// res.send(ques)
 		// const ques = quesQuery.map(que => ({ id: que.id, authorId: que.User.id, author: que.User.username, body: que.body }))
@@ -118,5 +134,6 @@ router.delete(
 		res.json()
 	})
 )
+
 
 module.exports = router

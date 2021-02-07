@@ -3,6 +3,9 @@
 	background-color: #fff;
 	position: fixed;
 	top: 0;
+	background-image: url('/assets/login_form_img.png');
+	opacity: 85%;
+	background-size: contain;
 }
 .navbar {
 	height: 40px;
@@ -11,6 +14,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	color: white
 }
 .navbar div:not(:first-child) {
 	margin-left: 15px;
