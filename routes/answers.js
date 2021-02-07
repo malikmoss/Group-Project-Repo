@@ -67,24 +67,44 @@ router.get(
 	})
 )
 
-router.post(
-	'/',
-	restoreUser,
-	requireAuth,
-	asyncHandler(async (req, res) => {
-        console.log(res.locals.user.id)
-        console.log(req.body.answer)
-        console.log(req.body.queId,)
-// 		const answer = await Answer.create({
-//             questionId: req.body.queId,
-//             authorId: res.locals.user.id,
-// 			   body: req.body.answer,
-// 		})
-		res.json()
-	})
-)
+// router.post(
+// 	'/',
+// 	restoreUser,
+// 	requireAuth,
+// 	asyncHandler(async (req, res) => {
+//         console.log(res.locals.user.id)
+//         console.log(req.body.answer)
+//         console.log(req.body.queId,)
+// // 		const answer = await Answer.create({
+// //             questionId: req.body.queId,
+// //             authorId: res.locals.user.id,
+// // 			   body: req.body.answer,
+// // 		})
+// 		res.json()
+// 	})
+// )
 
 
+// router.patch(
+// 	'/:id',
+// 	// restoreUser,
+// 	// requireAuth,
+// 	asyncHandler(async (req, res) => {
+// 		const answer = await Answer.findByPk(req.params.id)
+// 		answer.body = answer.body.newAnswer
+// 		await answer.save()
+// 		res.json()
+// 	})
+// )
 
+// router.delete(
+// 	'/:id',
+// 	// restoreUser,
+// 	// requireAuth,
+// 	asyncHandler(async (req, res) => {
+// 		(await Answer.findByPk(req.params.id)).destroy()
+// 		res.json()
+// 	})
+// )
 
 module.exports = router
