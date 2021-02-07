@@ -31,8 +31,6 @@ router.get(
 			order: [['createdAt', 'DESC']],
 			attributes: ['body', 'id'],
 		})
-<<<<<<< HEAD
-=======
 
 		const userVotesQuery = await Vote.findAll({
 			attributes: ['questionId', 'isUpVote'],
@@ -44,7 +42,6 @@ router.get(
 			isUpvote: vote.isUpVote,
 		}))
 
->>>>>>> finish-ques
 		const ques = []
 
 		for (let que of quesQuery) {
