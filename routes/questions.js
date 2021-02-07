@@ -3,6 +3,7 @@ const { asyncHandler } = require('../utils')
 const { restoreUser, requireAuth } = require('../auth')
 const { User, Que, Answer, Vote, Comment } = require('../db/models')
 
+//GET localhost:8080/questions
 router.get(
 	'/',
 	restoreUser,
@@ -30,6 +31,20 @@ router.get(
 			order: [['createdAt', 'DESC']],
 			attributes: ['body', 'id'],
 		})
+<<<<<<< HEAD
+=======
+
+		const userVotesQuery = await Vote.findAll({
+			attributes: ['questionId', 'isUpVote'],
+			where: [{ userId: res.locals.user.id }],
+		})
+
+		const userVotes = userVotesQuery.map(vote => ({
+			id: vote.questionId,
+			isUpvote: vote.isUpVote,
+		}))
+
+>>>>>>> finish-ques
 		const ques = []
 
 		for (let que of quesQuery) {
@@ -57,7 +72,7 @@ router.get(
 
 		// res.send(ques)
 
-		res.render('home', { ques })
+		res.render('home', { ques, userVotes })
 		// res.send(quesQuery);
 		// res.send(ques)
 		// const ques = quesQuery.map(que => ({ id: que.id, authorId: que.User.id, author: que.User.username, body: que.body }))
@@ -74,7 +89,7 @@ router.get(
 	restoreUser,
 	requireAuth,
 	asyncHandler(async (req, res) => {
-		const id = Number(req.params.id)
+		const id = req.params.id
 		const que = await Que.findByPk(id, {
 			include: [
 				{
@@ -91,7 +106,6 @@ router.get(
 			include: [{ model: User, attributes: ['username'] }],
 		})
 
-		// res.send([answers, que])
 		res.render('que', { title: que.body, que, answers })
 	})
 )
@@ -125,6 +139,7 @@ router.patch(
 		res.json()
 	})
 )
+//DELETE localhost:8080/questons/:id
 router.delete(
 	'/:id',
 	restoreUser,

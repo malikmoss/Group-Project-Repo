@@ -2,8 +2,17 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+<<<<<<< HEAD
 	/* --color-primary: #5425ff; */
 	--color-secondary: #7c7c7cd9;
+=======
+	--color-primary: #644a8c;
+	--color-secondary: #a46280;
+	--color-background: #efefef;
+	--color-shadow-light: #00000055;
+	--color-warning: #f00000;
+
+>>>>>>> finish-ques
 	--size-max-width: 600px;
 	--size-min-width: 550px;
 	font-family: 'Quicksand', sans-serif;
@@ -13,6 +22,27 @@ body {
 }
 .container__main {
 	max-width: var(--size-max-width);
+
 	margin: 40px auto 0 auto;
 	font-family: 'Quicksand', sans-serif;
+}
+
+.fa-edit,
+.fa-save {
+	color: var(--color-primary);
+}
+.fa-trash-alt,
+.fa-times {
+	color: var(--color-warning);
+}
+.fa-comment-lines {
+	color: var(--color-secondary);
+}
+
+.fa-edit:hover,
+.fa-save:hover,
+.fa-trash-alt:hover,
+.fa-times:hover,
+.fa-comment-lines:hover {
+	cursor: pointer;
 }

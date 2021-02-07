@@ -1,4 +1,5 @@
 window.addEventListener('DOMContentLoaded', () => {
+	//! Que Event Listeners
 	//Add a Que Event Listener
 	document.querySelector('.que__add').addEventListener('click', () => {
 		const input = document.querySelector('.new-question')
@@ -55,6 +56,7 @@ window.addEventListener('DOMContentLoaded', () => {
 					iUp.classList.add('far', 'fa-music')
 					const pUp = document.createElement('p')
 					pUp.innerHTML = 0
+					pUp.addEventListener('click', vote)
 					upvote.append(iUp, pUp)
 
 					const downvote = document.createElement('div')
@@ -64,6 +66,7 @@ window.addEventListener('DOMContentLoaded', () => {
 					iDown.classList.add('far', 'fa-music-slash')
 					const pDown = document.createElement('p')
 					pDown.innerHTML = 0
+					pDown.addEventListener('click', vote)
 					downvote.append(iDown, pDown)
 
 					votesHTML.append(upvote, downvote)
@@ -101,12 +104,14 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 	})
 
+	//Toggle icon function
 	function toggleIcons(i1, i2) {
 		i1.classList.toggle('fa-edit')
 		i1.classList.toggle('fa-save')
 		i2.classList.toggle('fa-trash-alt')
 		i2.classList.toggle('fa-times')
 	}
+
 	//Save changes Event Listener
 	function updateQue(e) {
 		const question = e.path[3].children[0]
@@ -137,6 +142,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			}
 		})
 	}
+
 	//Cancel changes Event Listener
 	function cancelQue(e) {
 		const deleteButton = e.target
@@ -155,6 +161,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		question.innerHTML = question.innerHTML.replace(/textarea>/g, 'b>')
 	}
+
 	//Edit a Que Event Listener
 	function editQue(e) {
 		const editButton = e.target
@@ -175,7 +182,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		const id = e.path[1].id.slice(4)
 	}
-
 	document.querySelectorAll('.que__edit').forEach(b => {
 		b.addEventListener('click', editQue)
 	})
@@ -193,20 +199,95 @@ window.addEventListener('DOMContentLoaded', () => {
 		b.addEventListener('click', deleteQue)
 	})
 
-	function upVote(e) {
-		console.log(e.target)
-		console.log(e.bubbles)
-		e.target.classList.toggle('active')
+	//! Vote Event Listeners
+	function vote(e) {
+		//Adjust path for click location
+		const adj = 13 - e.path.length
+		const votesPath = 3 - adj
+		const votePath = 2 - adj
+		const quePath = 5 - adj
+		const voteDiv = e.path[votePath]
+		const queId = e.path[quePath].id.slice(4)
+		const voteType = voteDiv.classList[0].slice(5)
+		const [upButton, downButton] = e.path[votesPath].children
+		const isUnvote = !voteDiv.classList.contains('active') ? true : false
+
+		if (isUnvote) {
+			//Voted
+			if (upButton.classList.contains('active') || downButton.classList.contains('active')) {
+				//Edit Vote
+				fetch(`/votes/${queId}`, {
+					method: 'PATCH',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						isUpvote: voteType === 'upvote' ? true : false,
+					}),
+				}).then(res => {
+					if (res.status === 200) {
+						if (voteType === 'upvote') {
+							upButton.classList.add('active')
+							upButton.querySelector('p').innerHTML++
+							downButton.classList.remove('active')
+							downButton.querySelector('p').innerHTML--
+						} else {
+							upButton.classList.remove('active')
+							upButton.querySelector('p').innerHTML--
+							downButton.classList.add('active')
+							downButton.querySelector('p').innerHTML++
+						}
+					}
+				})
+			} else {
+				//Create Vote
+				fetch('/votes', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						isUpvote: voteType === 'upvote' ? true : false,
+						queId,
+					}),
+				}).then(res => {
+					if (res.status === 200) {
+						if (voteType === 'upvote') {
+							upButton.querySelector('p').innerHTML++
+							upButton.classList.add('active')
+						} else {
+							downButton.classList.add('active')
+							downButton.querySelector('p').innerHTML++
+						}
+					}
+				})
+			}
+		} else {
+			//Unvoted
+			//Delete Vote
+			fetch(`/votes/${queId}`, {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			}).then(res => {
+				if (res.status === 200) {
+					if (voteType === 'upvote') {
+						upButton.classList.remove('active')
+						upButton.querySelector('p').innerHTML--
+					} else {
+						downButton.classList.remove('active')
+						downButton.querySelector('p').innerHTML--
+					}
+				}
+			})
+		}
 	}
-	function downVote(e) {
-		console.log(e.target)
-		console.log(e.bubbles)
-		e.target.classList.toggle('active')
-	}
+
 	document.querySelectorAll('.que__upvote').forEach(v => {
-		v.addEventListener('click', upVote)
+		v.addEventListener('click', vote)
 	})
-	document.querySelectorAll('.downClick').forEach(v => {
-		v.addEventListener('click', downVote)
+	document.querySelectorAll('.que__downvote').forEach(v => {
+		v.addEventListener('click', vote)
 	})
 })

@@ -28,7 +28,13 @@
 	min-width: 85px;
 }
 .navbar__logo > a {
+	display: flex;
+	align-items: center;
 	font-family: 'Permanent Marker', cursive;
+}
+.navbar__logo > a > h2 {
+	min-width: 90px;
+	margin-left: 8px;
 }
 .navbar__links {
 	min-width: 200px;

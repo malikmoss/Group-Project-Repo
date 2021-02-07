@@ -8,23 +8,48 @@
                 if que.answers[0]
                     .que__user
                         p Answered by <b>#{que.answers[0].ansAuthor}</b>
+                        if que.queAuthorId == user.id
+                            .que__buttons
+                                i(title='Edit Question').far.fa-edit.que__edit
+                                i(title='Delete Question').far.fa-trash-alt.que__delete
                 .que__body
                     a(href=`questions/${que.queId}`): b= que.queBody
 
                 if que.answers[0]
                     .que__answer
                         p= que.answers[0].ansBody
-
+                        .answer__buttons
+                            i(title='Edit Answer').far.fa-edit.answer__edit
+                            i(title='Delete Answer').far.fa-trash-alt.answer__delete
+                            i(title='Show Comments').far.fa-comment-lines.answer__show-comments
+                    if true
+                        .answer__comments
+                            .comment
+                                p Im a comment
+                                .comment__buttons
+                                    i(title='Edit Comment').far.fa-edit.comment__edit
+                                    i(title='Delete Comment').far.fa-trash-alt.comment__delete
+                            .comment
+                                p Im a comment
+                                .comment__buttons
+                                    i(title='Edit Comment').far.fa-edit.comment__edit
+                                    i(title='Delete Comment').far.fa-trash-alt.comment__delete
+                            .comment
+                                p Im a comment
+                                .comment__buttons
+                                    i(title='Edit Comment').far.fa-edit.comment__edit
+                                    i(title='Delete Comment').far.fa-trash-alt.comment__delete
                 .que__controls
                     .que__votes
+
                         div(title='Upvote').que__upvote
-                            i.far.fa-music
+                            i.far.fa-volume-up
                                 p.upClick= que.numUpvotes
                         div(title='Downvote').que__downvote
-                            i.far.fa-music-slash
+                            i.far.fa-volume-mute
                                 p.downClick= que.numDownvotes
+                    .que__add-answer
+                        i.far.fa-plus
+                            p Add Answer
 
-                    if que.queAuthorId == user.id
-                        .que__buttons
-                            i(title='Edit Question').far.fa-edit.que__edit
-                            i(title='Delete Question').far.fa-trash-alt.que__delete
+
