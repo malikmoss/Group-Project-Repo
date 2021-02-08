@@ -293,21 +293,21 @@ window.addEventListener('DOMContentLoaded', () => {
 	})
 
 	//! Answer Event Listeners
-	document.querySelectorAll('.que__add-answer').forEach(a => {
-		a.addEventListener('click', e => {
-			const adj = 12 - e.path.length
-			const path = 4 - adj
-			const queId = e.path[path].id.slice(4)
-
-			fetch('/answers', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: {
-					// answerBody,
-				},
-			})
-		})
-	})
+	// document.querySelectorAll('.que__add-answer').forEach(a => {
+	// 	a.addEventListener('click', e => {
+	// 		const adj = 12 - e.path.length
+	// 		const path = 4 - adj
+	// 		const queId = e.path[path].id.slice(4)
+	// 		fetch('/answers', {
+	// 			method: 'POST',
+	// 			headers: {
+	// 				'Conent-Type': 'application/json',
+	// 			},
+	// 			body: {
+	// 				questionId: queId,
+	// 				body: 'TEST',
+	// 			},
+	// 		})
+	// 	})
+	// })
 })

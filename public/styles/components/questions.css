@@ -113,12 +113,15 @@ body {
 }
 .que__add-answer {
 	margin-left: auto;
-}
-.que__add-answer {
 	border-radius: 20px;
 }
+
 .que__add-answer:hover {
 	background-color: #ffc55b;
+}
+.que__add-answer {
+	color: #000000;
+	text-decoration: none;
 }
 .que__add-answer p {
 	margin-left: 8px;

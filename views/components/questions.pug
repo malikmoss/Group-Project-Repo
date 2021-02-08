@@ -47,7 +47,7 @@
                         .que__downvote(title='Downvote')
                             i.far.fa-volume-mute
                                 p.downClick= que.numDownvotes
-                    .que__add-answer(title='Add Answer')
+                    a(href=`/questions/${que.queId}`).que__add-answer(title='Add Answer')
                         i.far.fa-plus
                             p Add Answer
 
