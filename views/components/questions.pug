@@ -5,14 +5,13 @@
     .questions__que-list
         for que in ques
             div(id=`que-${que.queId}`).que
-                if que.answers[0]
-                    .que__user
-                        p Answered by <b>#{que.answers[0].ansAuthor}</b>
-                        if que.queAuthorId == user.id
-                            .que__buttons
-                                i(title='Edit Question').far.fa-edit.que__edit
-                                i(title='Delete Question').far.fa-trash-alt.que__delete
+                .que__user
+                    p by #{que.queAuthor}
+                        .que__buttons
+                            i(title='Edit Question').far.fa-edit.que__edit
+                            i(title='Delete Question').far.fa-trash-alt.que__delete
                 .que__body
+<<<<<<< HEAD
                     a(href=`questions/${que.queId}`): b= que.queBody
 
                 if que.answers[0]
@@ -50,5 +49,8 @@
                     a(href=`/questions/${que.queId}`).que__add-answer(title='Add Answer')
                         i.far.fa-plus
                             b Add Answer
+=======
+                    b= que.queBody
+>>>>>>> search-route
 
 
