@@ -31,15 +31,12 @@ window.addEventListener('DOMContentLoaded', () => {
 							</div>
 						</div>
 						<div class="answer__body">
-							<p>${answer.body}</p>
+							<p>${answer.answer.body}</p>
 						</div>
 					`
 					wrapper.innerHTML = html
 					document.querySelector('.answer-text').value = ''
 					document.querySelector('.container__answers').prepend(wrapper)
-					console.log(answer)
-					// document.querySelector('.allAnswers').innerHTML
-					// button.classList.add(data)
 				})
 		}
 	})
