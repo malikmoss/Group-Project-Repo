@@ -93,19 +93,31 @@ router.get(
 				questionId: id,
 			},
 			attributes: ['body', 'createdAt', 'id'],
-			include: [{ model: User, attributes: ['username'] }],
+			include: [
+				{ model: User, attributes: ['username'] },
+				{
+					model: Comment,
+					attributes: ['authorId', 'body'],
+					include: [{ model: Answer, attributes: ['authorId'], include: [{ model: User, attributes: ['username'] }] }],
+				},
+			],
 		})
+<<<<<<< HEAD
 			const votesQuery = await Vote.findAll({
+=======
+
+		const votesQuery = await Vote.findAll({
+>>>>>>> 94f07f5761c192952ce202251e2b1f9e14550926
 			attributes: ['questionId', 'isUpVote'],
 			where: {
-				questionId: id
-			}
+				questionId: id,
+			},
 		})
 
 		// res.send(votesQuery)
 		const votes = votesQuery.map(vote => ({
 			question: vote.questionId,
-			isUpvote: vote.isUpVote
+			isUpvote: vote.isUpVote,
 		}))
 		let numUpvotes = votes.filter(vote => vote.isUpvote === true).length
 		let numDownvotes = votes.filter(vote => vote.isUpvote === false).length
