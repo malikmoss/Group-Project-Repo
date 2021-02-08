@@ -17,89 +17,55 @@ window.addEventListener('DOMContentLoaded', () => {
 				.then(res => {
 					if (res.status === 200) return res.json()
 				})
-				.then(data => {
-					//get div containing all ques
-					const { author, question } = data
+				.then(que => {
+					console.log(que)
+					const wrapper = document.createElement('div')
+					wrapper.classList.add('que')
+					wrapper.id = `que-${que.question.id}`
+
+					const html = `
+							<div class="que__user">
+								<p>Asked by
+									<b>you</b>
+								</p>
+								<div class="que__buttons">
+									<i class="far fa-edit que__edit" title="Edit Question"></i>
+									<i class="far fa-trash-alt que__delete" title="Delete Question"></i>
+								</div>
+							</div>
+							<div class="que__body">
+								<a href="questions/${que.question.id}">
+									<b>${que.question.body}</b>
+								</a>
+							</div>
+							<div class="que__controls">
+								<div class="que__votes">
+									<div class="que__upvote" title="Upvote">
+										<i class="far fa-volume-up">
+											<p class="upClick">0</p>
+										</i>
+									</div>
+									<div class="que__downvote" title="Downvote">
+										<i class="far fa-volume-mute">
+											<p class="downClick">0</p>
+										</i>
+									</div>
+								</div>
+								<a class="que__add-answer" href="/questions/${que.question.id}" title="Add Answer">
+									<i class="far fa-plus">
+										<p>Add Answer</p>
+									</i>
+								</a>
+							</div>
+					`
+					wrapper.innerHTML = html
+					// console.log(wrapper)
+
+					wrapper.querySelector('.que__upvote').addEventListener('click', vote)
+					wrapper.querySelector('.que__downvote').addEventListener('click', vote)
+
 					const container = document.querySelector('.questions__que-list')
-
-					//que, create single que container
-					const queContainerHTML = document.createElement('div')
-					queContainerHTML.classList.add('que')
-					queContainerHTML.id = `que-${question.id}`
-
-					//que__user, create elements and append
-					// const userContainerHTML = document.createElement('div')
-					// userContainerHTML.classList.add('que__user')
-
-					// const authorHTML = document.createElement('p')
-					// authorHTML.innerText = `by ${author}`
-
-					// userContainerHTML.append(authorHTML)
-
-					//que__body, create elements and append
-					const bodyHTML = document.createElement('div')
-					bodyHTML.classList.add('que__body')
-
-					const queBody = document.createElement('b')
-					queBody.innerHTML = question.body
-
-					bodyHTML.append(queBody)
-
-					//Upvotes/Downvotes, create elements and append
-					const votesHTML = document.createElement('div')
-					votesHTML.classList.add('que__votes')
-
-					const upvote = document.createElement('div')
-					upvote.classList.add('que__upvote')
-					upvote.title = 'Upvote'
-					const iUp = document.createElement('i')
-					iUp.classList.add('far', 'fa-music')
-					const pUp = document.createElement('p')
-					pUp.innerHTML = 0
-					pUp.addEventListener('click', vote)
-					upvote.append(iUp, pUp)
-
-					const downvote = document.createElement('div')
-					downvote.classList.add('que__downvote')
-					downvote.title = 'Downvote'
-					const iDown = document.createElement('i')
-					iDown.classList.add('far', 'fa-music-slash')
-					const pDown = document.createElement('p')
-					pDown.innerHTML = 0
-					pDown.addEventListener('click', vote)
-					downvote.append(iDown, pDown)
-
-					votesHTML.append(upvote, downvote)
-
-					//Edit/Delete buttons, create elements and append
-					const buttonContainerHTML = document.createElement('div')
-					buttonContainerHTML.classList.add('que__buttons')
-
-					const editButtonHTML = document.createElement('i')
-					editButtonHTML.classList.add('far', 'fa-edit', 'que__edit')
-					editButtonHTML.title = 'Edit Question'
-					editButtonHTML.addEventListener('click', editQue)
-
-					const deleteButtonHTML = document.createElement('i')
-					deleteButtonHTML.classList.add('far', 'fa-trash-alt', 'que__delete')
-					deleteButtonHTML.title = 'Delete Question'
-					deleteButtonHTML.addEventListener('click', deleteQue)
-
-					buttonContainerHTML.append(editButtonHTML, deleteButtonHTML)
-
-					//que__controls, create elements and append
-					const controlsHTML = document.createElement('div')
-					controlsHTML.classList.add('que__controls')
-
-					//append votes, buttons to controlsHTML
-
-					controlsHTML.append(votesHTML, buttonContainerHTML)
-					//append user to queContainerHTML
-					// queContainerHTML.append(userContainerHTML)
-					//append body to queContainerHTML
-					queContainerHTML.append(bodyHTML, controlsHTML)
-					input.value = ''
-					container.prepend(queContainerHTML)
+					container.prepend(wrapper)
 				})
 		}
 	})
