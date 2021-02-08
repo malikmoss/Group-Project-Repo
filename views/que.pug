@@ -1,20 +1,48 @@
 extends layout.pug
 block head
   link(rel="stylesheet" href="/styles/que.css")
+  script(src="/js/components/que.js")
 block content
   include components/navbar
+
   .container__main
-    div(id=`que-${que.id}`).container__que
-      p Posted by #{que.User.username}
-      p= que.username
-      p= que.body
-      button.edit-que Edit
-      button.delete-que Delete
-  div
-    for ans in answers
-      div
-        p Posted by #{ans.User.username}
-        p on #{ans.createdAt}
-        p= ans.body
-
-
+    .container__que(id=`que-${que.id}`)
+      .que__user
+        p Asked by
+          b  #{que.User.username}
+        .ans-que__buttons
+          i(title='Edit Question').far.fa-edit.ans-que__edit
+          i(title='Delete Question').far.fa-trash-alt.ans-que__delete
+      .que__body
+        b= que.body
+      .que__votes
+        .que__upvote(title='Upvote')
+          i.far.fa-volume-up
+            p.upClick= numUpvotes
+        .que__downvote(title='Downvote')
+          i.far.fa-volume-mute
+            p.downClick= numDownvotes
+    .container__new-answer
+      textarea(placeholder="Do you know the answer? Share your knowledge here!")
+      .new-answer__buttons
+        .new-answer__button.clear-answer
+          i.far.fa-eraser
+            b Clear Answer
+        .new-answer__button.add-answer
+          i.far.fa-plus
+            b Add Answer
+    .container__answers
+      for answer in answers
+        .answer(id=`ans-${answer.id}`)
+          .answer__user
+            p Answered by
+              b  #{answer.User.username}
+            .answer__user-buttons
+              i(title='Edit Answer').far.fa-edit.answer__edit
+              i(title='Delete Answer').far.fa-trash-alt.answer__delete
+          .answer__body
+            p= answer.body
+          .answer__comments
+            for comment in answer.Comments
+              //- p= comment.User.username
+              p= comment.body
