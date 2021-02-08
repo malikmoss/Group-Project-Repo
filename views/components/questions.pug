@@ -5,6 +5,7 @@
     .questions__que-list
         for que in ques
             div(id=`que-${que.queId}`).que
+<<<<<<< HEAD
                 if que.answers[0]
                     .que__user
                         p Answered by <b>#{que.answers[0].ansAuthor}</b>
@@ -51,4 +52,14 @@
                         i.far.fa-plus
                             p Add Answer
 
+=======
+                .que__user
+                    p by #{que.queAuthor}
+                    //- if que.authorId == user.id
+                    //-     .que__buttons
+                    //-         i(title='Edit Question').far.fa-edit.que__edit
+                    //-         i(title='Delete Question').far.fa-trash-alt.que__delete
+                .que__body
+                    b= que.queBody
+>>>>>>> d34bb349a50496bea25fed739541f6224d7192fb
 
