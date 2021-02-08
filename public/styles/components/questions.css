@@ -8,6 +8,9 @@ body {
 	padding: 10px;
 	box-shadow: 0 1px 2px var(--color-shadow-light);
 }
+.que > div:not(:first-child) {
+	margin-top: 8px;
+}
 .que__user {
 	display: flex;
 	justify-content: space-between;
@@ -31,7 +34,6 @@ body {
 }
 
 .que__body {
-	margin-top: 8px;
 }
 .que__body a {
 	color: black;
@@ -42,11 +44,9 @@ body {
 }
 
 .que__answer {
-	margin-top: 8px;
 	display: flex;
 }
 .answer__comments {
-	margin: 8px 0;
 	box-shadow: 1px 1px 3px 0 var(--color-shadow-light) inset;
 	border-radius: 5px;
 	padding: 8px;
@@ -93,7 +93,6 @@ body {
 }
 .que__upvote:hover,
 .que__upvote.active:hover {
-	cursor: pointer;
 	background-color: #aaffaa;
 }
 .que__upvote.active {
@@ -106,7 +105,6 @@ body {
 }
 .que__downvote:hover,
 .que__downvote.active:hover {
-	cursor: pointer;
 	background-color: #ffaaaa;
 }
 .que__downvote.active {

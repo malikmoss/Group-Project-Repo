@@ -36,6 +36,9 @@ body {
 .fa-save:hover,
 .fa-trash-alt:hover,
 .fa-times:hover,
-.fa-comment-lines:hover {
+.fa-comment-lines:hover,
+.que__upvote:hover,
+.que__downvote:hover,
+.que__add-answer:hover {
 	cursor: pointer;
 }

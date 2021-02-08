@@ -206,6 +206,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		const votesPath = 3 - adj
 		const votePath = 2 - adj
 		const quePath = 5 - adj
+
 		const voteDiv = e.path[votePath]
 		const queId = e.path[quePath].id.slice(4)
 		const voteType = voteDiv.classList[0].slice(5)
@@ -293,8 +294,20 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	//! Answer Event Listeners
 	document.querySelectorAll('.que__add-answer').forEach(a => {
-		a.querySelector('p').addEventListener('click', e => {
-			console.log(e.target)
+		a.addEventListener('click', e => {
+			const adj = 12 - e.path.length
+			const path = 4 - adj
+			const queId = e.path[path].id.slice(4)
+
+			fetch('/answers', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: {
+					// answerBody,
+				},
+			})
 		})
 	})
 })
