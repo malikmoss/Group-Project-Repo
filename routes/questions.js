@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const { asyncHandler } = require('../utils')
 const { restoreUser, requireAuth } = require('../auth')
-const { User, Que, Answer, Vote } = require('../db/models')
+const { User, Que, Answer, Vote, Comment } = require('../db/models')
 
 //GET localhost:8080/questions
 router.get(
@@ -11,11 +11,19 @@ router.get(
 	asyncHandler(async (req, res) => {
 		const quesQuery = await Que.findAll({
 			include: [
+				// { model: Vote, attributes: ['isUpVote']},
 				{ model: User, attributes: ['username', 'id'] },
 				{
 					model: Answer,
 					attributes: ['authorId', 'body'],
-					include: [{ model: User, attributes: ['username'] }],
+					include: [
+						{ model: User, attributes: ['username'] },
+						{
+							model: Comment,
+							attributes: ['authorId', 'body'],
+							include: [{ model: Answer, attributes: ['authorId'] }],
+						},
+					],
 				},
 				Vote,
 			],
@@ -47,10 +55,18 @@ router.get(
 				ansAuthorId: answer.authorId,
 				ansAuthor: answer.User.username,
 				ansBody: answer.body,
+				comment: answer.Comments.map(comment => ({
+					body: comment.body,
+					authorId: comment.authorId,
+				})),
 			}))
+
 			ques.push({ queId, queAuthorId, queAuthor, queBody, answers, numUpvotes, numDownvotes })
 		}
-		ques.sort((a, b) => b.numUpvotes - a.numUpvotes)
+
+		ques.sort((a, b) => b.numUpvotes / b.numDownvotes - a.numUpvotes / a.numDownvotes)
+
+		// res.send(ques)
 
 		res.render('home', { ques, userVotes })
 		// res.send(quesQuery);
