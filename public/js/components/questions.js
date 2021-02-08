@@ -290,4 +290,11 @@ window.addEventListener('DOMContentLoaded', () => {
 	document.querySelectorAll('.que__downvote').forEach(v => {
 		v.addEventListener('click', vote)
 	})
+
+	//! Answer Event Listeners
+	document.querySelectorAll('.que__add-answer').forEach(a => {
+		a.querySelector('p').addEventListener('click', e => {
+			console.log(e.target)
+		})
+	})
 })

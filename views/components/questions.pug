@@ -41,14 +41,13 @@
                                     i(title='Delete Comment').far.fa-trash-alt.comment__delete
                 .que__controls
                     .que__votes
-
-                        div(title='Upvote').que__upvote
+                        .que__upvote(title='Upvote')
                             i.far.fa-volume-up
                                 p.upClick= que.numUpvotes
-                        div(title='Downvote').que__downvote
+                        .que__downvote(title='Downvote')
                             i.far.fa-volume-mute
                                 p.downClick= que.numDownvotes
-                    .que__add-answer
+                    .que__add-answer(title='Add Answer')
                         i.far.fa-plus
                             p Add Answer
 
