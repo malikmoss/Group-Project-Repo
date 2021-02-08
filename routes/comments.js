@@ -51,27 +51,15 @@ router.get(
 	// requireAuth,
 	asyncHandler(async (req, res) => {
 		const id = (req.params.id)
-        const commentQuery = await Comment.findByPk(id,
+        const commentQuery = await Comment.findAll(
             { include: [
                 { model: Answer, attributes: ['id', 'authorId', 'questionId']},
-				// { model: User, attributes: ['username']},
+				{ model: User, attributes: ['username']},
             ],
-            // attributes: ['answerId', 'authorId', 'body'],
+            attributes: ['answerId', 'authorId', 'body'],
+            where: { answerId: id},
         })
-
-
-
-
-		// const answer = await Comment.findAll({
-		// 	where: {
-		// 		answerId: id,
-		// 	},
-		// 	attributes: ['body']
-		// 	include: [{ model: User, attributes: ['username'] }],
-		// })
-        // res.render('que', { title: que.body, que, answers })
-        res.send(commentQuery)
-
+            res.send(commentQuery)
     }))
 
 

@@ -13,14 +13,10 @@ router.get(
 			include: [
 				// { model: Vote, attributes: ['isUpVote']},
 				{ model: User, attributes: ['username', 'id'] },
-				{
-					model: Answer,
-					attributes: ['authorId', 'body'],
+				{ model: Answer, attributes: ['authorId', 'body'],
 					include: [
 						{ model: User, attributes: ['username'] },
-						{
-							model: Comment,
-							attributes: ['authorId', 'body'],
+						{ model: Comment, attributes: ['authorId', 'body'],
 							include: [{ model: Answer, attributes: ['authorId'] }],
 						},
 					],
@@ -60,10 +56,8 @@ router.get(
 					authorId: comment.authorId,
 				})),
 			}))
-
 			ques.push({ queId, queAuthorId, queAuthor, queBody, answers, numUpvotes, numDownvotes })
 		}
-
 		ques.sort((a, b) => b.numUpvotes / b.numDownvotes - a.numUpvotes / a.numDownvotes)
 
 		// res.send(ques)

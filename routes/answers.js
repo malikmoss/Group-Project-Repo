@@ -47,7 +47,7 @@ router.get(
 		const answer = await Answer.findByPk(id,
 			{ include: [
 				{ model: User, attributes: ['username']},
-			],
+				],
 		})
 		const comments = await Comment.findAll({
 			where: { answerId: id},
