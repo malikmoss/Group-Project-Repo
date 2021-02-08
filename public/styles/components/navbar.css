@@ -16,9 +16,10 @@
 	justify-content: space-between;
 	/* color: white; */
 }
-.navbar > * {
-	color: white;
+.navbar * {
+	color: white !important;
 }
+
 .navbar div:not(:first-child) {
 	margin-left: 15px;
 }
@@ -30,17 +31,17 @@
 .navbar__logo {
 	min-width: 85px;
 }
+
 .navbar__logo > a {
 	display: flex;
 	align-items: center;
 	font-family: 'Permanent Marker', cursive;
 }
 .navbar__logo > a > h2 {
-	min-width: 90px;
 	margin-left: 8px;
 }
 .navbar__links {
-	min-width: 200px;
+	margin-right: auto;
 }
 .navbar__links > a {
 	font-size: 20px;
@@ -52,15 +53,20 @@
 }
 .navbar__search {
 	padding: 5px;
-	border: 1px solid var(--color-primary);
+	border: 1px solid #fff;
 	border-radius: 5px;
-	width: 30%;
+	width: 800px;
 }
 .navbar__search > input {
+	color: #fff;
+	background: none;
 	margin-left: 5px;
 	width: 100%;
 	border: none;
 	outline: none;
+}
+.navbar__search > input::placeholder {
+	color: #fff;
 }
 .navbar__account i {
 	margin-left: 5px;
