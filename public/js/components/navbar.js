@@ -12,12 +12,12 @@ window.addEventListener('DOMContentLoaded', () => {
 	// 	  }
 	//   }
 
-	const searchBar = document.querySelector('.navbar__search')
-	const input = searchBar.querySelector('input')
+	// const searchBar = document.querySelector('.navbar__search')
+	const input = document.getElementById('searchInput')
 	input.addEventListener('keyup', (e) => {
-		if (!input.value.trim()) return;
+		// if (!input.value.trim()) return;
 		if (e.key === 'Enter') {
-			fetch(`/questions/search?q=${input.value}`).then(console.log)
+			window.location.href = `/questions/search?q=${input.value}`;
 		}
     });
 

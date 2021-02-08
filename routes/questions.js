@@ -61,12 +61,10 @@ router.get('/search', async (req, res) => {
 
 
 	if (searchResult.length > 0) {
-		let results = JSON.stringify(searchResult)
-		results = JSON.parse(results);
-		const queIds = results.map(que => que.id);
-		const ques = await _getQues(queIds);
-		const data = _structureQueryData(ques);
-		res.render('home', { data })
+		const queIds = searchResult.map(que => que.id);
+		const quesQuery = await _getQues(queIds);
+		const ques = _structureQueryData(quesQuery);
+		res.render('home', { ques })
 	}
 })
 
@@ -88,7 +86,7 @@ async function _getQues(ids) {
 		attributes: ['body', 'id'],
 	})
 
-	return JSON.parse(JSON.stringify(quesQuery));
+	return quesQuery;
 }
 
 function _structureQueryData(quesQuery) {
