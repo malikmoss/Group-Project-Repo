@@ -67,22 +67,24 @@ router.get(
 	})
 )
 
-// router.post(
-// 	'/',
-// 	restoreUser,
-// 	requireAuth,
-// 	asyncHandler(async (req, res) => {
-//         console.log(res.locals.user.id)
-//         console.log(req.body.answer)
-//         console.log(req.body.queId,)
-// // 		const answer = await Answer.create({
-// //             questionId: req.body.queId,
-// //             authorId: res.locals.user.id,
-// // 			   body: req.body.answer,
-// // 		})
-// 		res.json()
-// 	})
-// )
+router.post(
+    '/',
+	restoreUser,
+	// requireAuth,
+	asyncHandler(async (req, res) => {
+        console.log('test')
+        console.log(res.locals.user.id)
+        console.log(req.body.queId)
+        console.log(req.body.id,)
+		const answer = await Answer.create({
+            authorId: res.locals.user.id,
+            questionId: req.body.queId,
+			body: req.body.body
+        })
+        // res.send(answer)
+		res.json(answer)
+	})
+)
 
 
 // router.patch(

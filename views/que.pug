@@ -16,5 +16,6 @@ block content
         p Posted by #{ans.User.username}
         p on #{ans.createdAt}
         p= ans.body
-
-
+  .answer__button
+    input(type="text", name="addingAnswer", id='addAnswer')
+    button.add-answer Add Answer
