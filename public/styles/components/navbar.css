@@ -14,7 +14,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	color: white
+	color: white;
 }
 .navbar div:not(:first-child) {
 	margin-left: 15px;
