@@ -18,10 +18,14 @@ body {
 	padding: 15px 15px 50px 15px;
 	min-width: 575px;
 }
-
+.container__login h1 {
+	font-size: 40px;
+}
+.container__login p {
+	font-size: 24px;
+}
 .container__login > :not(:last-child) {
 	text-align: center;
-	font-size: 50px;
 }
 .container__form {
 	box-sizing: border-box;
@@ -61,10 +65,10 @@ form > div {
 	margin-left: 40px;
 }
 form label {
-	font-size: 21px;
+	font-size: 18px;
 }
 form p {
-	font-size: 27px;
+	font-size: 20px;
 	justify-content: center;
 }
 form button {
