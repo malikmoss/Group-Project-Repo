@@ -98,7 +98,8 @@ router.get(
 				{
 					model: Comment,
 					attributes: ['authorId', 'body'],
-					include: [{ model: Answer, attributes: ['authorId'], include: [{ model: User, attributes: ['username'] }] }],
+					include: [{ model: Answer, attributes: ['authorId'],
+					include: [{ model: User, attributes: ['username'] }] }],
 				},
 			],
 		})
