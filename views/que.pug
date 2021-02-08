@@ -23,17 +23,21 @@ block content
           i.far.fa-volume-mute
             p.downClick= numDownvotes
     .container__new-answer
-      textarea
-      .new-answer__button.add-answer
-        i.far.fa-plus
-          p Add Answer
+      textarea(placeholder="Do you know the answer? Share your knowledge here!")
+      .new-answer__buttons
+        .new-answer__button.clear-answer
+          i.far.fa-eraser
+            b Clear Answer
+        .new-answer__button.add-answer
+          i.far.fa-plus
+            b Add Answer
     .container__answers
       for answer in answers
         .answer(id=`ans-${answer.id}`)
           .answer__user
             p Answered by
               b= answer.User.username
-            .answer__buttons
+            .answer__user-buttons
               i(title='Edit Answer').far.fa-edit.answer__edit
               i(title='Delete Answer').far.fa-trash-alt.answer__delete
           p= answer.body

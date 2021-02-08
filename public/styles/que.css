@@ -16,25 +16,51 @@
 
 .container__new-answer {
 	display: flex;
+	align-items: flex-end;
 }
 .container__new-answer textarea {
+	padding: 8px;
+	outline: var(--color-primary);
 	border: none;
 	resize: none;
+	width: 79%;
+	height: 68px;
 	box-shadow: 1px 1px 3px 0 var(--color-shadow-light) inset;
 	border-radius: 5px;
 	background-color: var(--color-background);
 }
+.new-answer__buttons {
+	margin-left: 8px;
+}
+.new-answer__buttons div:not(:first-child) {
+	margin-top: 8px;
+}
 .new-answer__button {
 	display: flex;
 	align-items: center;
-	margin-left: auto;
+	justify-content: center;
 	background-color: var(--color-background);
 	border-radius: 20px;
-	padding: 4px;
+	padding: 8px;
+	height: 30px;
+	min-width: 130px;
+}
+
+.clear-answer:hover {
+	background-color: var(--color-warning);
+}
+.add-answer:hover {
+	background-color: var(--color-highlight);
 }
 .new-answer__button i {
 	display: flex;
 }
-.new-answer__button p {
+.new-answer__button b {
 	margin-left: 8px;
+}
+.answer__user {
+	display: flex;
+}
+.answer__user-buttons {
+	display: flex;
 }
