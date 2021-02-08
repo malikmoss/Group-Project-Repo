@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const { asyncHandler } = require('../utils')
 const { restoreUser, requireAuth } = require('../auth')
-const { User, Que, Answer, Vote } = require('../db/models')
+const { User, Que, Answer, Comment, Vote } = require('../db/models')
 const { Op } = require('sequelize');
 
 //GET localhost:8080/questions
@@ -108,6 +108,7 @@ router.get(
 	})
 )
 
+//GET localhost:808/questions/search
 router.get('/search', async (req, res) => {
 	const searchQuery = req.query.q.trim();
 	let searchResult;
@@ -133,8 +134,6 @@ router.get('/search', async (req, res) => {
 	}
 })
 
-<<<<<<< HEAD
-=======
 async function _getQues(ids) {
 	const quesQuery = await Que.findAll({
 		where: {
@@ -179,7 +178,6 @@ function _structureQueryData(quesQuery) {
 
 
 //GET localhost:8080/questions/
->>>>>>> d4e339dc6b1f2198d7ff283bf1fcf9c573de0d96
 //POST localhost:8080/questions/
 router.post(
 	'/',
