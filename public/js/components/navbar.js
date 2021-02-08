@@ -15,7 +15,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	// const searchBar = document.querySelector('.navbar__search')
 	const input = document.getElementById('searchInput')
 	input.addEventListener('keyup', (e) => {
-		// if (!input.value.trim()) return;
+		if (!input.value.trim()) return;
 		if (e.key === 'Enter') {
 			window.location.href = `/questions/search?q=${input.value}`;
 		}
