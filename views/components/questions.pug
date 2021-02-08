@@ -17,19 +17,19 @@
                             i(title='Delete Question').far.fa-trash-alt.que__delete
                 .que__body
                     b= que.queBody
-                if que.answers[0]
-                    .que__answer
-                        p= que.answers[0].ansBody
-                        if que.answers[0] == user.id
-                            .answer__buttons
-                                i(title='Edit Answer').far.fa-edit.answer__edit
-                                i(title='Delete Answer').far.fa-trash-alt.answer__delete
-                                i(title='Show Comments').far.fa-comment-lines.answer__show-comments
-                    if que.answers[0].comment.length > 0
-                        .answer__comments
-                            for comment in que.answers[0].comment
-                                .comment
-                                    p= comment.body
+                //- if que.answers[0]
+                //-     .que__answer
+                //-         p= que.answers[0].ansBody
+                //-         if que.answers[0] == user.id
+                //-             .answer__buttons
+                //-                 i(title='Edit Answer').far.fa-edit.answer__edit
+                //-                 i(title='Delete Answer').far.fa-trash-alt.answer__delete
+                //-                 i(title='Show Comments').far.fa-comment-lines.answer__show-comments
+                //-     if que.answers[0].comment.length > 0
+                //-         .answer__comments
+                //-             for comment in que.answers[0].comment
+                //-                 .comment
+                //-                     p= comment.body
 
                 .que__controls
                     .que__votes
