@@ -20,7 +20,7 @@
                 if que.answers[0]
                     .que__answer
                         p= que.answers[0].ansBody
-                        if que.answers[0] == user.id
+                        if que.answers[0] == user.authorId
                             .answer__buttons
                                 i(title='Edit Answer').far.fa-edit.answer__edit
                                 i(title='Delete Answer').far.fa-trash-alt.answer__delete
