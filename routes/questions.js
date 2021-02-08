@@ -1,7 +1,8 @@
 const router = require('express').Router()
 const { asyncHandler } = require('../utils')
 const { restoreUser, requireAuth } = require('../auth')
-const { User, Que, Answer, Vote, Comment } = require('../db/models')
+const { User, Que, Answer, Comment, Vote } = require('../db/models')
+const { Op } = require('sequelize')
 
 //GET localhost:8080/questions
 router.get(
@@ -18,11 +19,7 @@ router.get(
 					attributes: ['authorId', 'body'],
 					include: [
 						{ model: User, attributes: ['username'] },
-						{
-							model: Comment,
-							attributes: ['authorId', 'body'],
-							include: [{ model: Answer, attributes: ['authorId'] }],
-						},
+						{ model: Comment, attributes: ['authorId', 'body'], include: [{ model: Answer, attributes: ['authorId'] }] },
 					],
 				},
 				Vote,
@@ -63,7 +60,6 @@ router.get(
 
 			ques.push({ queId, queAuthorId, queAuthor, queBody, answers, numUpvotes, numDownvotes })
 		}
-
 		ques.sort((a, b) => b.numUpvotes / b.numDownvotes - a.numUpvotes / a.numDownvotes)
 
 		// res.send(ques)
@@ -87,25 +83,112 @@ router.get(
 	asyncHandler(async (req, res) => {
 		const id = req.params.id
 		const que = await Que.findByPk(id, {
-			include: [
-				{
-					model: User,
-					attributes: ['username'],
-				},
-			],
+			include: [{ model: User, attributes: ['username'] }],
+			Vote,
 		})
 		const answers = await Answer.findAll({
 			where: {
 				questionId: id,
 			},
-			attributes: ['body', 'createdAt'],
-			include: [{ model: User, attributes: ['username'] }],
+			attributes: ['body', 'createdAt', 'id'],
+			include: [
+				{ model: User, attributes: ['username'] },
+				{
+					model: Comment,
+					attributes: ['authorId', 'body'],
+					include: [{ model: Answer, attributes: ['authorId'], include: [{ model: User, attributes: ['username'] }] }],
+				},
+			],
+		})
+		const votesQuery = await Vote.findAll({
+			attributes: ['questionId', 'isUpVote'],
+			where: {
+				questionId: id,
+			},
 		})
 
-		res.render('que', { title: que.body, que, answers })
+		// res.send(votesQuery)
+		const votes = votesQuery.map(vote => ({
+			question: vote.questionId,
+			isUpvote: vote.isUpVote,
+		}))
+		let numUpvotes = votes.filter(vote => vote.isUpvote === true).length
+		let numDownvotes = votes.filter(vote => vote.isUpvote === false).length
+
+		console.log(votes)
+		// res.send(votes)
+		res.render('que', { title: que.body, que, answers, numUpvotes, numDownvotes })
 	})
 )
 
+//GET localhost:808/questions/search
+router.get('/search', async (req, res) => {
+	const searchQuery = req.query.q.trim()
+	let searchResult
+
+	if (searchQuery) {
+		searchResult = await Que.findAll({
+			where: {
+				body: {
+					[Op.iLike]: `%${searchQuery}%`,
+				},
+			},
+		})
+	}
+
+	if (searchResult.length > 0) {
+		const queIds = searchResult.map(que => que.id)
+		const quesQuery = await _getQues(queIds)
+		const ques = _structureQueryData(quesQuery)
+		res.render('home', { ques })
+	} else {
+		res.render('search-not-found', { search: searchQuery })
+	}
+})
+
+async function _getQues(ids) {
+	const quesQuery = await Que.findAll({
+		where: {
+			id: [...ids],
+		},
+		include: [
+			{ model: User, attributes: ['username', 'id'] },
+			{
+				model: Answer,
+				attributes: ['authorId', 'body'],
+				include: [{ model: User, attributes: ['username'] }],
+			},
+			Vote,
+		],
+		order: [['createdAt', 'DESC']],
+		attributes: ['body', 'id'],
+	})
+
+	return quesQuery
+}
+
+function _structureQueryData(quesQuery) {
+	const ques = []
+
+	for (let que of quesQuery) {
+		const queBody = que.body,
+			queId = que.id,
+			queAuthor = que.User.username,
+			queAuthorId = que.User.id
+		let numUpvotes = que.Votes.filter(vote => vote.isUpVote === true).length
+		let numDownvotes = que.Votes.filter(vote => vote.isUpVote === false).length
+
+		const answers = que.Answers.map(answer => ({
+			ansAuthorId: answer.authorId,
+			ansAuthor: answer.User.username,
+			ansBody: answer.body,
+		}))
+		ques.push({ queId, queAuthorId, queAuthor, queBody, answers, numUpvotes, numDownvotes })
+	}
+	return ques.sort((a, b) => b.numUpvotes - a.numUpvotes)
+}
+
+//GET localhost:8080/questions/
 //POST localhost:8080/questions/
 router.post(
 	'/',

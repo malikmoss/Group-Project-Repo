@@ -117,13 +117,13 @@ body {
 }
 
 .que__add-answer:hover {
-	background-color: #ffc55b;
+	background-color: var(--color-highlight);
 }
 .que__add-answer {
 	color: #000000;
 	text-decoration: none;
 }
-.que__add-answer p {
+.que__add-answer b {
 	margin-left: 8px;
 }
 i {

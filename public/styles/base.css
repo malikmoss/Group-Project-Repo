@@ -6,10 +6,12 @@
 	--color-secondary: #a46280;
 	--color-background: #efefef;
 	--color-shadow-light: #00000055;
-	--color-warning: #f00000;
+	--color-warning: #ff3333;
+	--color-highlight: #ffc55b;
 
 	--size-max-width: 600px;
 	--size-min-width: 550px;
+	font-family: 'Quicksand', sans-serif;
 }
 body {
 	font-family: 'Quicksand', sans-serif;
@@ -18,6 +20,7 @@ body {
 	max-width: var(--size-max-width);
 
 	margin: 40px auto 0 auto;
+	font-family: 'Quicksand', sans-serif;
 }
 
 .fa-edit,
@@ -39,6 +42,8 @@ body {
 .fa-comment-lines:hover,
 .que__upvote:hover,
 .que__downvote:hover,
-.que__add-answer:hover {
+.que__add-answer:hover,
+.clear-answer:hover,
+.add-answer:hover {
 	cursor: pointer;
 }
