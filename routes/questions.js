@@ -43,6 +43,12 @@ asyncHandler(async (req, res) => {
 	res.render('que', { title: que.body, que, answers });
 }));
 
+
+router.get('/search', async (res, req) => {
+	const searchQuery = req
+	console.log(searchQuery)
+})
+
 //GET localhost:8080/questions/
 //POST localhost:8080/questions/
 router.post(
