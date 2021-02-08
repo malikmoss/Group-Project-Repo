@@ -9,7 +9,6 @@ router.get(
 	restoreUser,
 	requireAuth,
 	asyncHandler(async (req, res) => {
-
 		const quesQuery = await Que.findAll({
 			include: [
 				// { model: Vote, attributes: ['isUpVote']},
@@ -24,7 +23,7 @@ router.get(
 							attributes: ['authorId', 'body'],
 							include: [{ model: Answer, attributes: ['authorId'] }],
 						},
-				],
+					],
 				},
 				Vote,
 			],
@@ -56,16 +55,16 @@ router.get(
 				ansAuthorId: answer.authorId,
 				ansAuthor: answer.User.username,
 				ansBody: answer.body,
-					comment: answer.Comments.map(comment => ({
-						body: comment.body,
-						authorId: comment.authorId
-				}))
+				comment: answer.Comments.map(comment => ({
+					body: comment.body,
+					authorId: comment.authorId,
+				})),
 			}))
 
-			ques.push({ queId, queAuthorId, queAuthor, queBody, answers, numUpvotes, numDownvotes})
+			ques.push({ queId, queAuthorId, queAuthor, queBody, answers, numUpvotes, numDownvotes })
 		}
 
-		ques.sort((a, b) => (b.numUpvotes / b.numDownvotes) - (a.numUpvotes / a.numDownvotes))
+		ques.sort((a, b) => b.numUpvotes / b.numDownvotes - a.numUpvotes / a.numDownvotes)
 
 		// res.send(ques)
 
@@ -100,7 +99,7 @@ router.get(
 			where: {
 				questionId: id,
 			},
-			attributes: ['body', 'createdAt'],
+			attributes: ['body', 'createdAt', 'id'],
 			include: [{ model: User, attributes: ['username'] }],
 		})
 
@@ -163,6 +162,5 @@ router.delete(
 		res.json()
 	})
 )
-
 
 module.exports = router
