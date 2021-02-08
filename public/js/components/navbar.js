@@ -1,7 +1,7 @@
 window.addEventListener('DOMContentLoaded', () => {
 //Add Listener to Search Ques
 	let ques = [];
-	
+
 	// const loadQues = async () => {
 	// 	try {
 	// 	  const res = await fetch(`/questions/search/?q=${}`)
@@ -16,8 +16,8 @@ window.addEventListener('DOMContentLoaded', () => {
 	const input = searchBar.querySelector('input')
 	input.addEventListener('keyup', (e) => {
         if (e.key === 'Enter') {
-			fetch(`/questions/search?q=${input.value}`)
-		}
+					fetch(`/questions/search?q=${input.value}`)
+				}
     });
 
 	// 	const displayResults = (result) => {

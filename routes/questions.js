@@ -1,7 +1,8 @@
 const router = require('express').Router()
 const { asyncHandler } = require('../utils')
 const { restoreUser, requireAuth } = require('../auth')
-const { User, Que, Answer, Vote, Comment } = require('../db/models')
+const { User, Que, Answer, Comment, Vote } = require('../db/models')
+const { Op } = require('sequelize');
 
 //GET localhost:8080/questions
 router.get(
@@ -108,21 +109,26 @@ router.get(
 )
 
 router.get('/search', async (req, res) => {
-	const searchQuery = req
-	console.log(searchQuery)
-	// const parse = ''
-	const questions = await Ques.findAll({
-		where: {
-			body: que.bdoy
-		  }
+	const searchQuery = req.query.q.trim();
+
+	if (searchQuery) {
+		const searchResult = await Que.findAll({
+			where: {
+				body: {
+					[Op.iLike]: `%${searchQuery}%`
+				}
+			}
 		})
-	const searchResults = (que) => {
-	  const mappedQues = ques.map((que) => {
-		return que.body
-	})
-  }
+
+		res.render('home', { searchResult })
+	}
+
+	// const parse = ''
+	// const questions = await Ques.findAll({
+	// 	where: {
+	// 		body: que.bdoy
+	// 	}
 	// })
-	res.render('home', {title: que.body, que})
 })
 
 //POST localhost:8080/questions/
