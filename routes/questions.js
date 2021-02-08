@@ -44,14 +44,16 @@ asyncHandler(async (req, res) => {
 }));
 
 
-// router.get('/search', async (res, req) => {
-// 	const searchQuery = req
-// 	console.log(searchQuery)
-// 	const parse = parseInt()
-// 	Ques.findAll({
-// 		where: que
-// 	})
-// })
+router.get('/search', async (res, req) => {
+	const searchQuery = req
+	console.log(searchQuery)
+	const parse = ''
+	const questions = await Ques.findAll({
+		where: {
+			body: que.bdoy
+		}
+	})
+})
 
 //GET localhost:8080/questions/
 //POST localhost:8080/questions/
