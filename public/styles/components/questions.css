@@ -32,9 +32,6 @@ body {
 .answer__buttons i:not(:first-child) {
 	margin-top: 8px;
 }
-
-.que__body {
-}
 .que__body a {
 	color: black;
 	text-decoration: none;

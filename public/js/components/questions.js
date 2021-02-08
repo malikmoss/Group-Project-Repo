@@ -21,10 +21,13 @@ window.addEventListener('DOMContentLoaded', () => {
 					console.log(que)
 					const wrapper = document.createElement('div')
 					wrapper.classList.add('que')
-					wrapper.id = que.question.id
+					wrapper.id = `que-${que.question.id}`
 
 					const html = `
 							<div class="que__user">
+								<p>Asked by
+									<b>you</b>
+								</p>
 								<div class="que__buttons">
 									<i class="far fa-edit que__edit" title="Edit Question"></i>
 									<i class="far fa-trash-alt que__delete" title="Delete Question"></i>
@@ -56,6 +59,11 @@ window.addEventListener('DOMContentLoaded', () => {
 							</div>
 					`
 					wrapper.innerHTML = html
+					// console.log(wrapper)
+
+					wrapper.querySelector('.que__upvote').addEventListener('click', vote)
+					wrapper.querySelector('.que__downvote').addEventListener('click', vote)
+
 					const container = document.querySelector('.questions__que-list')
 					container.prepend(wrapper)
 				})
@@ -249,23 +257,4 @@ window.addEventListener('DOMContentLoaded', () => {
 	document.querySelectorAll('.que__downvote').forEach(v => {
 		v.addEventListener('click', vote)
 	})
-
-	//! Answer Event Listeners
-	// document.querySelectorAll('.que__add-answer').forEach(a => {
-	// 	a.addEventListener('click', e => {
-	// 		const adj = 12 - e.path.length
-	// 		const path = 4 - adj
-	// 		const queId = e.path[path].id.slice(4)
-	// 		fetch('/answers', {
-	// 			method: 'POST',
-	// 			headers: {
-	// 				'Conent-Type': 'application/json',
-	// 			},
-	// 			body: {
-	// 				questionId: queId,
-	// 				body: 'TEST',
-	// 			},
-	// 		})
-	// 	})
-	// })
 })
