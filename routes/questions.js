@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const { asyncHandler } = require('../utils')
 const { restoreUser, requireAuth } = require('../auth')
-const { User, Que, Answer, Comment, Vote } = require('../db/models')
+const { User, Que, Answer, Vote } = require('../db/models')
 const { Op } = require('sequelize');
 
 //GET localhost:8080/questions
@@ -110,27 +110,76 @@ router.get(
 
 router.get('/search', async (req, res) => {
 	const searchQuery = req.query.q.trim();
+	let searchResult;
 
 	if (searchQuery) {
-		const searchResult = await Que.findAll({
+		searchResult = await Que.findAll({
 			where: {
 				body: {
 					[Op.iLike]: `%${searchQuery}%`
 				}
 			}
 		})
-
-		res.render('home', { searchResult })
 	}
 
-	// const parse = ''
-	// const questions = await Ques.findAll({
-	// 	where: {
-	// 		body: que.bdoy
-	// 	}
-	// })
+
+	if (searchResult.length > 0) {
+		let results = JSON.stringify(searchResult)
+		results = JSON.parse(results);
+		const queIds = results.map(que => que.id);
+		const ques = await _getQues(queIds);
+		const data = _structureQueryData(ques);
+		res.render('home', { data })
+	}
 })
 
+<<<<<<< HEAD
+=======
+async function _getQues(ids) {
+	const quesQuery = await Que.findAll({
+		where: {
+			id: [...ids]
+		},
+		include: [
+			{ model: User, attributes: ['username', 'id'] },
+			{
+				model: Answer,
+				attributes: ['authorId', 'body'],
+				include: [{ model: User, attributes: ['username'] }],
+			},
+			Vote,
+		],
+		order: [['createdAt', 'DESC']],
+		attributes: ['body', 'id'],
+	})
+
+	return JSON.parse(JSON.stringify(quesQuery));
+}
+
+function _structureQueryData(quesQuery) {
+	const ques = []
+
+	for (let que of quesQuery) {
+		const queBody = que.body,
+			queId = que.id,
+			queAuthor = que.User.username,
+			queAuthorId = que.User.id
+		let numUpvotes = que.Votes.filter(vote => vote.isUpVote === true).length
+		let numDownvotes = que.Votes.filter(vote => vote.isUpVote === false).length
+
+		const answers = que.Answers.map(answer => ({
+			ansAuthorId: answer.authorId,
+			ansAuthor: answer.User.username,
+			ansBody: answer.body,
+		}))
+		ques.push({ queId, queAuthorId, queAuthor, queBody, answers, numUpvotes, numDownvotes })
+	}
+	return ques.sort((a, b) => b.numUpvotes - a.numUpvotes)
+}
+
+
+//GET localhost:8080/questions/
+>>>>>>> d4e339dc6b1f2198d7ff283bf1fcf9c573de0d96
 //POST localhost:8080/questions/
 router.post(
 	'/',

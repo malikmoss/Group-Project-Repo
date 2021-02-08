@@ -15,9 +15,10 @@ window.addEventListener('DOMContentLoaded', () => {
 	const searchBar = document.querySelector('.navbar__search')
 	const input = searchBar.querySelector('input')
 	input.addEventListener('keyup', (e) => {
-        if (e.key === 'Enter') {
-					fetch(`/questions/search?q=${input.value}`)
-				}
+		if (!input.value.trim()) return;
+		if (e.key === 'Enter') {
+			fetch(`/questions/search?q=${input.value}`).then(console.log)
+		}
     });
 
 	// 	const displayResults = (result) => {
