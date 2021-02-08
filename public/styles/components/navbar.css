@@ -19,6 +19,7 @@
 .navbar > * {
 	color: white;
 }
+
 .navbar div:not(:first-child) {
 	margin-left: 15px;
 }
@@ -36,11 +37,10 @@
 	font-family: 'Permanent Marker', cursive;
 }
 .navbar__logo > a > h2 {
-	min-width: 90px;
 	margin-left: 8px;
 }
 .navbar__links {
-	min-width: 200px;
+	margin-right: auto;
 }
 .navbar__links > a {
 	font-size: 20px;
@@ -54,7 +54,7 @@
 	padding: 5px;
 	border: 1px solid var(--color-primary);
 	border-radius: 5px;
-	width: 30%;
+	width: 800px;
 }
 .navbar__search > input {
 	margin-left: 5px;
