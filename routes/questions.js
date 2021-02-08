@@ -82,9 +82,7 @@ router.get(
 		const id = req.params.id
 		const que = await Que.findByPk(id, {
 			include: [
-				{
-					model: User,
-					attributes: ['username'],
+				{ model: User, attributes: ['username'],
 				},
 			],
 			Vote,
@@ -96,13 +94,13 @@ router.get(
 			attributes: ['body', 'createdAt', 'id'],
 			include: [{ model: User, attributes: ['username'] }],
 		})
-
 			const votesQuery = await Vote.findAll({
 			attributes: ['questionId', 'isUpVote'],
 			where: {
 				questionId: id
 			}
 		})
+
 		// res.send(votesQuery)
 		const votes = votesQuery.map(vote => ({
 			question: vote.questionId,
