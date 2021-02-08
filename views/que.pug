@@ -9,10 +9,10 @@ block content
     .container__que(id=`que-${que.id}`)
       .que__user
         p Asked by
-          b #{que.User.username}
-        .que__buttons
-          i(title='Edit Question').far.fa-edit.que__edit
-          i(title='Delete Question').far.fa-trash-alt.que__delete
+          b  #{que.User.username}
+        .ans-que__buttons
+          i(title='Edit Question').far.fa-edit.ans-que__edit
+          i(title='Delete Question').far.fa-trash-alt.ans-que__delete
       .que__body
         b= que.body
       .que__votes
@@ -36,12 +36,9 @@ block content
         .answer(id=`ans-${answer.id}`)
           .answer__user
             p Answered by
-              b= answer.User.username
+              b  #{answer.User.username}
             .answer__user-buttons
               i(title='Edit Answer').far.fa-edit.answer__edit
               i(title='Delete Answer').far.fa-trash-alt.answer__delete
-          p= answer.body
-
-  //- .answer__button
-  //-   input(type="text" name="addingAnswer" id='addAnswer')
-  //-   button.add-answer Add Answer
+          .answer__body
+            p= answer.body

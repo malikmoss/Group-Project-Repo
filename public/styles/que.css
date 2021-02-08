@@ -7,12 +7,6 @@
 	padding: 10px;
 	background-color: #fff;
 }
-.container__main > div:not(:first-child) {
-	margin-top: 8px;
-}
-.container__que > div:not(:first-child) {
-	margin-top: 8px;
-}
 
 .container__new-answer {
 	display: flex;
@@ -32,7 +26,10 @@
 .new-answer__buttons {
 	margin-left: 8px;
 }
-.new-answer__buttons div:not(:first-child) {
+.container__main > div:not(:first-child),
+.new-answer__buttons > div:not(:first-child),
+.container__que > div:not(:first-child),
+.answer > div:not(:first-child) {
 	margin-top: 8px;
 }
 .new-answer__button {
@@ -45,7 +42,6 @@
 	height: 30px;
 	min-width: 130px;
 }
-
 .clear-answer:hover {
 	background-color: var(--color-warning);
 }
@@ -58,9 +54,25 @@
 .new-answer__button b {
 	margin-left: 8px;
 }
+
 .answer__user {
 	display: flex;
+	align-items: center;
 }
 .answer__user-buttons {
 	display: flex;
+	margin-left: auto;
+}
+.ans-que__delete {
+	margin-left: 8px;
+}
+.answer__delete {
+	margin-left: 8px;
+}
+.container__answers > div:not(:first-child) {
+	margin-top: 8px;
+	padding-top: 8px;
+	border-top: 1px solid var(--color-shadow-light);
+}
+.answer {
 }
