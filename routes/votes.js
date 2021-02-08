@@ -14,7 +14,6 @@ router.post(
 			questionId: req.body.queId,
 			userId: res.locals.user.id,
 		})
-		console.log(vote.id)
 		res.json()
 	})
 )

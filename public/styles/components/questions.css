@@ -32,7 +32,10 @@ body {
 .answer__buttons i:not(:first-child) {
 	margin-top: 8px;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> finish-ques
 .que__body a {
 	color: black;
 	text-decoration: none;
