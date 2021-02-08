@@ -10,9 +10,10 @@ block content
       .que__user
         p Asked by
           b  #{que.User.username}
-        .ans-que__buttons
-          i(title='Edit Question').far.fa-edit.ans-que__edit
-          i(title='Delete Question').far.fa-trash-alt.ans-que__delete
+        if que.authorId == user.id
+          .ans-que__buttons
+            //- i(title='Edit Question').far.fa-edit.ans-que__edit
+            //- i(title='Delete Question').far.fa-trash-alt.ans-que__delete
       .que__body
         b= que.body
       .que__votes
@@ -23,7 +24,7 @@ block content
           i.far.fa-volume-mute
             p.downClick= numDownvotes
     .container__new-answer
-      textarea(placeholder="Do you know the answer? Share your knowledge here!")
+      textarea.answer-text(placeholder="Do you know the answer? Share your knowledge here!")
       .new-answer__buttons
         .new-answer__button.clear-answer
           i.far.fa-eraser
@@ -31,18 +32,20 @@ block content
         .new-answer__button.add-answer
           i.far.fa-plus
             b Add Answer
-    .container__answers
-      for answer in answers
-        .answer(id=`ans-${answer.id}`)
-          .answer__user
-            p Answered by
-              b  #{answer.User.username}
-            .answer__user-buttons
-              i(title='Edit Answer').far.fa-edit.answer__edit
-              i(title='Delete Answer').far.fa-trash-alt.answer__delete
-          .answer__body
-            p= answer.body
-          .answer__comments
-            for comment in answer.Comments
-              //- p= comment.User.username
-              p= comment.body
+    if answers.length > 0
+      .container__answers
+        for answer in answers
+          .answer(id=`ans-${answer.id}`)
+            .answer__user
+              p Answered by
+                b  #{answer.User.username}
+              .answer__user-buttons
+                //- i(title='Edit Answer').far.fa-edit.answer__edit
+                //- i(title='Delete Answer').far.fa-trash-alt.answer__delete
+            .answer__body
+              p= answer.body
+            if answer.Comments.length > 0
+              .answer__comments
+                for comment in answer.Comments
+                  //- p= comment.User.username
+                  p= comment.body

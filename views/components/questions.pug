@@ -1,42 +1,36 @@
 .container__questions
     .questions__ask
         input(type="text").new-question
-        button.que__add Add to queue
+        button.que__add Post your que
     .questions__que-list
         for que in ques
             div(id=`que-${que.queId}`).que
                 .que__user
-                    p by #{que.queAuthor}
+                    if que.answers[0]
+                        p Answered by
+                            b  #{que.answers[0].ansAuthor}
+                    else
+                        p Asked by
+                            b  #{que.queAuthor}
                         .que__buttons
                             i(title='Edit Question').far.fa-edit.que__edit
                             i(title='Delete Question').far.fa-trash-alt.que__delete
                 .que__body
-                    a(href=`questions/${que.queId}`): b= que.queBody
+                    b= que.queBody
+                //- if que.answers[0]
+                //-     .que__answer
+                //-         p= que.answers[0].ansBody
+                //-         if que.answers[0] == user.id
+                //-             .answer__buttons
+                //-                 i(title='Edit Answer').far.fa-edit.answer__edit
+                //-                 i(title='Delete Answer').far.fa-trash-alt.answer__delete
+                //-                 i(title='Show Comments').far.fa-comment-lines.answer__show-comments
+                //-     if que.answers[0].comment.length > 0
+                //-         .answer__comments
+                //-             for comment in que.answers[0].comment
+                //-                 .comment
+                //-                     p= comment.body
 
-                if que.answers[0]
-                    .que__answer
-                        p= que.answers[0].ansBody
-                        .answer__buttons
-                            i(title='Edit Answer').far.fa-edit.answer__edit
-                            i(title='Delete Answer').far.fa-trash-alt.answer__delete
-                            i(title='Show Comments').far.fa-comment-lines.answer__show-comments
-                    if true
-                        .answer__comments
-                            .comment
-                                p Im a comment
-                                .comment__buttons
-                                    i(title='Edit Comment').far.fa-edit.comment__edit
-                                    i(title='Delete Comment').far.fa-trash-alt.comment__delete
-                            .comment
-                                p Im a comment
-                                .comment__buttons
-                                    i(title='Edit Comment').far.fa-edit.comment__edit
-                                    i(title='Delete Comment').far.fa-trash-alt.comment__delete
-                            .comment
-                                p Im a comment
-                                .comment__buttons
-                                    i(title='Edit Comment').far.fa-edit.comment__edit
-                                    i(title='Delete Comment').far.fa-trash-alt.comment__delete
                 .que__controls
                     .que__votes
                         .que__upvote(title='Upvote')

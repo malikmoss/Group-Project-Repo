@@ -12,9 +12,7 @@ router.get(
 			include: [
 				{ model: Que, attributes: ['id', 'body', 'authorId'] },
 				{ model: User, attributes: ['username', 'id'] },
-				{ model: Comment, attributes: ['authorId', 'body'],
-					include: [{ model: User, attributes: ['username'] }],
-				},
+				{ model: Comment, attributes: ['authorId', 'body'], include: [{ model: User, attributes: ['username'] }] },
 			],
 			order: [['createdAt', 'DESC']],
 			attributes: ['body', 'id', 'authorId'],
@@ -44,13 +42,9 @@ router.get(
 	// requireAuth,
 	asyncHandler(async (req, res) => {
 		const id = req.params.id
-		const answer = await Answer.findByPk(id,
-			{ include: [
-				{ model: User, attributes: ['username']},
-				],
-		})
+		const answer = await Answer.findByPk(id, { include: [{ model: User, attributes: ['username'] }] })
 		const comments = await Comment.findAll({
-			where: { answerId: id},
+			where: { answerId: id },
 			attributes: ['body'],
 			include: [{ model: User, attributes: ['username'] }],
 		})
@@ -64,12 +58,13 @@ router.post(
 	restoreUser,
 	requireAuth,
 	asyncHandler(async (req, res) => {
+		console.log(res.locals.user)
 		const answer = await Answer.create({
 			authorId: res.locals.user.id,
 			questionId: req.body.queId,
 			body: req.body.text,
 		})
-		res.json(answer)
+		res.json({ answer, username: res.locals.user.username })
 	})
 )
 

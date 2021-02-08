@@ -80,8 +80,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	//Save changes Event Listener
 	function updateQue(e) {
-		const question = e.path[3].children[0]
+		const question = e.path[3].children[1]
+		console.log(question.children)
 		const newQue = question.children[0].value
+
+		question.addEventListener('click', redirectToQue)
 
 		fetch(`/questions/${e.path[3].id.slice(4)}`, {
 			method: 'PATCH',
@@ -113,7 +116,9 @@ window.addEventListener('DOMContentLoaded', () => {
 	function cancelQue(e) {
 		const deleteButton = e.target
 		const editButton = e.path[1].children[0]
-		const question = e.path[3].children[0]
+		const question = e.path[3].children[1]
+
+		question.addEventListener('click', redirectToQue)
 
 		toggleIcons(editButton, deleteButton)
 
@@ -132,7 +137,11 @@ window.addEventListener('DOMContentLoaded', () => {
 	function editQue(e) {
 		const editButton = e.target
 		const deleteButton = e.path[1].children[1]
-		const question = e.path[3].children[0]
+		const question = e.path[3].children[1]
+
+		question.removeEventListener('click', redirectToQue)
+
+		console.log(e.path[3].children)
 
 		toggleIcons(editButton, deleteButton)
 
@@ -155,6 +164,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	//Delete a Que Event Listener
 	function deleteQue(e) {
 		const id = e.path[3].id.slice(4)
+		console.log(id)
 		fetch(`/questions/${id}`, {
 			method: 'DELETE',
 		}).then(res => {
@@ -256,5 +266,15 @@ window.addEventListener('DOMContentLoaded', () => {
 	})
 	document.querySelectorAll('.que__downvote').forEach(v => {
 		v.addEventListener('click', vote)
+	})
+
+	function redirectToQue(e) {
+		const adj = 10 - e.path.length
+		const path = 2 - adj
+		console.log(e.path[path])
+		window.location = `/questions/${e.path[path].id.slice(4)}`
+	}
+	document.querySelectorAll('.que__body').forEach(body => {
+		body.addEventListener('click', redirectToQue)
 	})
 })
