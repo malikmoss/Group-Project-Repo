@@ -45,31 +45,36 @@ const { User, Que, Answer, Vote, Comment } = require('../db/models')
 // 	})
 // )
 
-// // router.get(
-// // 	'/:id(\\d+)',
-// // 	restoreUser,
-// // 	// requireAuth,
-// // 	asyncHandler(async (req, res) => {
-// // 		const id = (req.params.id)
-// // 		const answer = await Answer.findByPk(id, {
-// // 			include: [
-// // 				{
-// // 					model: User,
-// // 					attributes: ['username'],
-// // 				},
-// // 			],
-// // 		})
-// // 		const comments = await Comment.findAll({
-// // 			where: {
-// // 				answerId: id,
-// // 			},
-// // 			attributes: ['body'],
-// // 			include: [{ model: User, attributes: ['username'] }],
-// // 		})
-// //         res.send([answer, comments])
-// // 		// res.render('que', { title: que.body, que, answers })
-// // 	})
-// // )
+router.get(
+	'/:id(\\d+)',
+	restoreUser,
+	// requireAuth,
+	asyncHandler(async (req, res) => {
+		const id = (req.params.id)
+        const commentQuery = await Comment.findByPk(id,
+            { include: [
+                { model: Answer, attributes: ['id', 'authorId', 'questionId']},
+				// { model: User, attributes: ['username']},
+            ],
+            // attributes: ['answerId', 'authorId', 'body'],
+        })
+
+
+
+
+		// const answer = await Comment.findAll({
+		// 	where: {
+		// 		answerId: id,
+		// 	},
+		// 	attributes: ['body']
+		// 	include: [{ model: User, attributes: ['username'] }],
+		// })
+        // res.render('que', { title: que.body, que, answers })
+        res.send(commentQuery)
+
+    }))
+
+
 
 // // router.post(
 // // 	'/',

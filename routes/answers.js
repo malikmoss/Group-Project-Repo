@@ -11,12 +11,8 @@ router.get(
 		const answerQuery = await Answer.findAll({
 			include: [
 				{ model: Que, attributes: ['id', 'body', 'authorId'] },
-				//  where: [body= !null]},
 				{ model: User, attributes: ['username', 'id'] },
-				{
-					model: Comment,
-
-					attributes: ['authorId', 'body'],
+				{ model: Comment, attributes: ['authorId', 'body'],
 					include: [{ model: User, attributes: ['username'] }],
 				},
 			],
@@ -48,18 +44,13 @@ router.get(
 	// requireAuth,
 	asyncHandler(async (req, res) => {
 		const id = req.params.id
-		const answer = await Answer.findByPk(id, {
-			include: [
-				{
-					model: User,
-					attributes: ['username'],
-				},
+		const answer = await Answer.findByPk(id,
+			{ include: [
+				{ model: User, attributes: ['username']},
 			],
 		})
 		const comments = await Comment.findAll({
-			where: {
-				answerId: id,
-			},
+			where: { answerId: id},
 			attributes: ['body'],
 			include: [{ model: User, attributes: ['username'] }],
 		})
