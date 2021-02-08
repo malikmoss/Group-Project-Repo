@@ -42,3 +42,7 @@ block content
               i(title='Delete Answer').far.fa-trash-alt.answer__delete
           .answer__body
             p= answer.body
+          .answer__comments
+            for comment in answer.Comments
+              p= comment.User.username
+              p= comment.body
