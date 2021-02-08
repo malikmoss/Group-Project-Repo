@@ -65,6 +65,8 @@ router.get('/search', async (req, res) => {
 		const quesQuery = await _getQues(queIds);
 		const ques = _structureQueryData(quesQuery);
 		res.render('home', { ques })
+	} else {
+		res.render('search-not-found', {search: searchQuery})
 	}
 })
 
