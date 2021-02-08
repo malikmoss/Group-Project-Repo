@@ -2,6 +2,7 @@ const router = require('express').Router()
 const { asyncHandler } = require('../utils')
 const { restoreUser, requireAuth } = require('../auth')
 const { User, Que, Answer } = require('../db/models')
+const { Op } = require('sequelize');
 
 router.get(
 	'/',
@@ -44,15 +45,27 @@ asyncHandler(async (req, res) => {
 }));
 
 
-router.get('/search', async (res, req) => {
-	const searchQuery = req
-	console.log(searchQuery)
-	const parse = ''
-	const questions = await Ques.findAll({
-		where: {
-			body: que.bdoy
-		}
-	})
+router.get('/search', async (req, res) => {
+	const searchQuery = req.query.q.trim();
+
+	if (searchQuery) {
+		const searchResult = await Que.findAll({
+			where: {
+				body: {
+					[Op.iLike]: `%${searchQuery}%`
+				}
+			}
+		})
+
+		res.render('home', { searchResult })
+	}
+
+	// const parse = ''
+	// const questions = await Ques.findAll({
+	// 	where: {
+	// 		body: que.bdoy
+	// 	}
+	// })
 })
 
 //GET localhost:8080/questions/
