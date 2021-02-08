@@ -1,3 +1,40 @@
-body {
-  /* background-color: yellow; */
+.container__main {
+	max-width: var(--size-max-width);
+}
+.container__main > div {
+	box-shadow: 0 1px 2px var(--color-shadow-light);
+	border-radius: 5px;
+	padding: 10px;
+	background-color: #fff;
+}
+.container__main > div:not(:first-child) {
+	margin-top: 8px;
+}
+.container__que > div:not(:first-child) {
+	margin-top: 8px;
+}
+
+.container__new-answer {
+	display: flex;
+}
+.container__new-answer textarea {
+	border: none;
+	resize: none;
+	box-shadow: 1px 1px 3px 0 var(--color-shadow-light) inset;
+	border-radius: 5px;
+	background-color: var(--color-background);
+}
+.new-answer__button {
+	display: flex;
+	align-items: center;
+	margin-left: auto;
+	background-color: var(--color-background);
+	border-radius: 20px;
+	padding: 4px;
+}
+.new-answer__button i {
+	display: flex;
+}
+.new-answer__button p {
+	margin-left: 8px;
 }

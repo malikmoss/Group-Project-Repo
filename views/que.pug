@@ -18,27 +18,26 @@ block content
       .que__votes
         .que__upvote(title='Upvote')
           i.far.fa-volume-up
-            p.upClick= que.numUpvotes
+            p.upClick= numUpvotes
         .que__downvote(title='Downvote')
           i.far.fa-volume-mute
-            p.downClick= que.numDownvotes
+            p.downClick= numDownvotes
+    .container__new-answer
+      textarea
+      .new-answer__button.add-answer
+        i.far.fa-plus
+          p Add Answer
+    .container__answers
+      for answer in answers
+        .answer(id=`ans-${answer.id}`)
+          .answer__user
+            p Answered by
+              b= answer.User.username
+            .answer__buttons
+              i(title='Edit Answer').far.fa-edit.answer__edit
+              i(title='Delete Answer').far.fa-trash-alt.answer__delete
+          p= answer.body
 
-
-
-
-  .container__main
-    div(id=`que-${que.id}`).container__que
-      p Posted by #{que.User.username}
-      p= que.username
-      p= que.body
-      button.edit-que Edit
-      button.delete-que Delete
-  div
-    for ans in answers
-      div
-        p Posted by #{ans.User.username}
-        p on #{ans.createdAt}
-        p= ans.body
-  .answer__button
-    input(type="text" name="addingAnswer" id='addAnswer')
-    button.add-answer Add Answer
+  //- .answer__button
+  //-   input(type="text" name="addingAnswer" id='addAnswer')
+  //-   button.add-answer Add Answer
