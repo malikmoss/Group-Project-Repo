@@ -3,7 +3,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		const data = {
 			queId: document.querySelector('.container__que').id.slice(4),
 			text: document.querySelector('#addAnswer').value,
-		}
+        }
+        if (data !== '') {
 		fetch('/answers', {
 			method: 'POST',
 			headers: {
@@ -14,8 +15,13 @@ window.addEventListener('DOMContentLoaded', () => {
 			.then(res => {
 				if (res.status === 200) return res.json()
 			})
-			.then(data => {
-				console.log(data)
-			})
+			.then(answer => {
+                document.querySelector('.allAnswers').innerHTML++
+                button.classList.add(data)
+
+
+				// console.log(data)
+            })
+        }
 	})
 })
