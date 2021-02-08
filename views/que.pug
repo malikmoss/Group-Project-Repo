@@ -1,6 +1,7 @@
 extends layout.pug
 block head
   link(rel="stylesheet" href="/styles/que.css")
+  script(src="/js/components/que.js")
 block content
   include components/navbar
   .container__main
@@ -17,5 +18,5 @@ block content
         p on #{ans.createdAt}
         p= ans.body
   .answer__button
-    input(type="text", name="addingAnswer", id='addAnswer')
+    input(type="text" name="addingAnswer" id='addAnswer')
     button.add-answer Add Answer
