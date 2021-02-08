@@ -2,17 +2,12 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
-<<<<<<< HEAD
-	/* --color-primary: #5425ff; */
-	--color-secondary: #7c7c7cd9;
-=======
 	--color-primary: #644a8c;
 	--color-secondary: #a46280;
 	--color-background: #efefef;
 	--color-shadow-light: #00000055;
 	--color-warning: #f00000;
 
->>>>>>> finish-ques
 	--size-max-width: 600px;
 	--size-min-width: 550px;
 	font-family: 'Quicksand', sans-serif;
@@ -43,6 +38,9 @@ body {
 .fa-save:hover,
 .fa-trash-alt:hover,
 .fa-times:hover,
-.fa-comment-lines:hover {
+.fa-comment-lines:hover,
+.que__upvote:hover,
+.que__downvote:hover,
+.que__add-answer:hover {
 	cursor: pointer;
 }
