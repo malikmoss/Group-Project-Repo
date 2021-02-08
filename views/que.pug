@@ -4,6 +4,28 @@ block head
   script(src="/js/components/que.js")
 block content
   include components/navbar
+
+  .container__main
+    .container__que(id=`que-${que.id}`)
+      .que__user
+        p Asked by
+          b #{que.User.username}
+        .que__buttons
+          i(title='Edit Question').far.fa-edit.que__edit
+          i(title='Delete Question').far.fa-trash-alt.que__delete
+      .que__body
+        b= que.body
+      .que__votes
+        .que__upvote(title='Upvote')
+          i.far.fa-volume-up
+            p.upClick= que.numUpvotes
+        .que__downvote(title='Downvote')
+          i.far.fa-volume-mute
+            p.downClick= que.numDownvotes
+
+
+
+
   .container__main
     div(id=`que-${que.id}`).container__que
       p Posted by #{que.User.username}
