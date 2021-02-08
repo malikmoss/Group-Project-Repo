@@ -44,10 +44,14 @@ asyncHandler(async (req, res) => {
 }));
 
 
-router.get('/search', async (res, req) => {
-	const searchQuery = req
-	console.log(searchQuery)
-})
+// router.get('/search', async (res, req) => {
+// 	const searchQuery = req
+// 	console.log(searchQuery)
+// 	const parse = parseInt()
+// 	Ques.findAll({
+// 		where: que
+// 	})
+// })
 
 //GET localhost:8080/questions/
 //POST localhost:8080/questions/
