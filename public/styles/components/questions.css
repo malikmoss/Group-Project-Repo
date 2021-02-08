@@ -1,25 +1,129 @@
 body {
-	background-color: #efefef;
+	background-color: var(--color-background);
 }
 .que {
 	border-radius: 5px;
 	background-color: #fff;
 	margin: 10px 0;
 	padding: 10px;
-	box-shadow: 0 1px 2px #00000055;
+	box-shadow: 0 1px 2px var(--color-shadow-light);
+}
+.que > div:not(:first-child) {
+	margin-top: 8px;
 }
 .que__user {
 	display: flex;
 	justify-content: space-between;
 }
-.que__edit {
-	color: var(--color-primary);
+.que__buttons {
+	margin-left: auto;
+	margin-right: 8px;
 }
-.que__delete {
-	margin-left: 10px;
-	color: #f00000;
+.que__buttons i:not(:first-child),
+.comment__buttons i:not(:first-child) {
+	margin-left: 8px;
 }
-.que__edit:hover,
-.que__delete:hover {
-	cursor: pointer;
+.answer__buttons {
+	margin: 0 4px;
+
+	display: flex;
+	flex-direction: column;
+}
+.answer__buttons i:not(:first-child) {
+	margin-top: 8px;
+}
+
+.que__body a {
+	color: black;
+	text-decoration: none;
+}
+.que__body a:hover {
+	text-decoration: underline;
+}
+
+.que__answer {
+	display: flex;
+}
+.answer__comments {
+	box-shadow: 1px 1px 3px 0 var(--color-shadow-light) inset;
+	border-radius: 5px;
+	padding: 8px;
+	background-color: var(--color-background);
+}
+.answer__comments .comment:not(:first-child) {
+	border-top: 1px solid var(--color-shadow-light);
+	margin-top: 8px;
+}
+.comment {
+	display: flex;
+}
+.comment__buttons {
+	margin-left: auto;
+}
+.que__controls,
+.que__votes,
+.que__upvote,
+.que__downvote,
+.que__add-answer,
+.que__add-answer i {
+	display: flex;
+	align-items: center;
+}
+.que_controls {
+	margin-top: 8px;
+}
+
+.que__votes i {
+	display: flex;
+}
+.que__votes p {
+	margin-left: 4px;
+}
+
+.que__upvote,
+.que__downvote,
+.que__add-answer {
+	padding: 8px;
+	background-color: var(--color-background);
+}
+.que__upvote {
+	border-radius: 20px 0 0 20px;
+}
+.que__upvote:hover,
+.que__upvote.active:hover {
+	background-color: #aaffaa;
+}
+.que__upvote.active {
+	box-shadow: 0 0 5px 2px #33ff3355;
+	background-color: #44ff44;
+}
+.que__downvote {
+	border-left: 1px solid #dedede;
+	border-radius: 0 20px 20px 0;
+}
+.que__downvote:hover,
+.que__downvote.active:hover {
+	background-color: #ffaaaa;
+}
+.que__downvote.active {
+	box-shadow: 0 0 5px 2px #ff333333;
+	background-color: #ff4444;
+}
+.que__add-answer {
+	margin-left: auto;
+	border-radius: 20px;
+}
+
+.que__add-answer:hover {
+	background-color: #ffc55b;
+}
+.que__add-answer {
+	color: #000000;
+	text-decoration: none;
+}
+.que__add-answer p {
+	margin-left: 8px;
+}
+i {
+	font-size: 14px;
 }

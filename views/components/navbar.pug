@@ -1,7 +1,9 @@
 .container__navbar
     .navbar
         .navbar__logo
-            a(href='/questions'): h2 Que-It
+            a(href='/questions')
+                i.far.fa-compact-disc.fa-lg.fa-spin
+                h2 Que-It
         .navbar__links
             a(href='/questions'): i.far.fa-home
             a(href='/follows'): i.far.fa-address-book
@@ -11,5 +13,5 @@
             i.far.fa-search
             input(type='text' placeholder="Search Que-It")
         .navbar__account
-            a(href='/users/logout') Logout
+            a(href='/users/logout'): p Logout
                 i.far.fa-sign-out

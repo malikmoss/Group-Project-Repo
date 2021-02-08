@@ -9,6 +9,9 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store)
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
 const quesRouter = require('./routes/questions')
+const answersRouter = require('./routes/answers')
+const commentsRouter = require('./routes/comments')
+const votesRouter = require('./routes/votes')
 const { sessionConfig } = require('./config')
 
 const app = express()
@@ -40,6 +43,9 @@ store.sync()
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
 app.use('/questions', quesRouter)
+app.use('/answers', answersRouter)
+app.use('/comments', commentsRouter)
+app.use('/votes', votesRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
