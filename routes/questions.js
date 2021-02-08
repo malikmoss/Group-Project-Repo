@@ -102,12 +102,7 @@ router.get(
 				},
 			],
 		})
-<<<<<<< HEAD
 			const votesQuery = await Vote.findAll({
-=======
-
-		const votesQuery = await Vote.findAll({
->>>>>>> 94f07f5761c192952ce202251e2b1f9e14550926
 			attributes: ['questionId', 'isUpVote'],
 			where: {
 				questionId: id,
