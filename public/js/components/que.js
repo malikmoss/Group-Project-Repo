@@ -1,11 +1,15 @@
 window.addEventListener('DOMContentLoaded', () => {
 	document.querySelector('.add-answer').addEventListener('click', e => {
+		try {
+			document.querySelector('.answers-empty').remove()
+		} catch {
+			null
+		}
 		const data = {
 			queId: document.querySelector('.container__que').id.slice(4),
 			text: document.querySelector('.answer-text').value,
 		}
-		console.log(data.text)
-		if (data !== '') {
+		if (data.text !== '') {
 			fetch('/answers', {
 				method: 'POST',
 				headers: {
