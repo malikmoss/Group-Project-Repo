@@ -18,28 +18,23 @@
                             i(title='Delete Question').far.fa-trash-alt.que__delete
                 .que__body
                     b= que.queBody
-                //- if que.answers[0]
-                //-     .que__answer
-                //-         p= que.answers[0].ansBody
-                //-         if que.answers[0] == user.id
-                //-             .answer__buttons
-                //-                 i(title='Edit Answer').far.fa-edit.answer__edit
-                //-                 i(title='Delete Answer').far.fa-trash-alt.answer__delete
-                //-                 i(title='Show Comments').far.fa-comment-lines.answer__show-comments
-                //-     if que.answers[0].comment.length > 0
-                //-         .answer__comments
-                //-             for comment in que.answers[0].comment
-                //-                 .comment
-                //-                     p= comment.body
 
                 .que__controls
                     .que__votes
-                        .que__upvote(title='Upvote')
-                            i.far.fa-volume-up
-                                p.upClick= que.numUpvotes
-                        .que__downvote(title='Downvote')
-                            i.far.fa-volume-mute
-                                p.downClick= que.numDownvotes
+                        if que.votes.userVote.is
+                            .que__upvote(title='Upvote')(class= que.votes.userVote.isUpVote ? "active": undefined)
+                                i.far.fa-volume-up
+                                    p.upClick= que.votes.up.count
+                            .que__downvote(title='Downvote')(class= que.votes.userVote.isUpVote ? undefined : "active")
+                                i.far.fa-volume-mute
+                                    p.downClick= que.votes.down.count
+                        else
+                            .que__upvote(title='Upvote')
+                                i.far.fa-volume-up
+                                    p.upClick= que.votes.up.count
+                            .que__downvote(title='Downvote')
+                                i.far.fa-volume-mute
+                                    p.downClick= que.votes.down.count
                     a(href=`/questions/${que.queId}`).que__add-answer(title='Add Answer')
                         i.far.fa-plus
                             b Add Answer
