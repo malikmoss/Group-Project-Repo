@@ -63,7 +63,7 @@ router.get(
 		ques.sort((a, b) => b.numUpvotes / b.numDownvotes - a.numUpvotes / a.numDownvotes)
 
 		// res.send(ques)
-
+		console.log(ques)
 		res.render('home', { ques, userVotes })
 		// res.send(quesQuery);
 		// res.send(ques)
