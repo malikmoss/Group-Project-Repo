@@ -83,13 +83,9 @@ router.get(
 				})),
 			}))
 
-			console.log(votes.userVote)
 			ques.push({ queId, queAuthorId, queAuthor, queBody, answers, votes })
 		}
 		ques.sort((a, b) => b.numUpvotes / b.numDownvotes - a.numUpvotes / a.numDownvotes)
-
-		// res.send(ques)
-		// console.log(ques)
 
 		res.render('home', { ques, userVotes })
 	})
@@ -121,23 +117,41 @@ router.get(
 			],
 		})
 		const votesQuery = await Vote.findAll({
-			attributes: ['questionId', 'isUpVote'],
+			attributes: ['userId', 'questionId', 'isUpVote'],
 			where: {
 				questionId: id,
 			},
 		})
+		const votes = {
+			userVote: {
+				is: false,
+				isUpVote: false,
+			},
 
-		// res.send(votesQuery)
-		const votes = votesQuery.map(vote => ({
-			question: vote.questionId,
-			isUpvote: vote.isUpVote,
-		}))
-		let numUpvotes = votes.filter(vote => vote.isUpvote === true).length
-		let numDownvotes = votes.filter(vote => vote.isUpvote === false).length
-
+			up: {
+				count: 0,
+				users: [],
+			},
+			down: {
+				count: 0,
+				users: [],
+			},
+		}
+		for (let vote of votesQuery) {
+			if (res.locals.user.id === vote.userId) {
+				votes.userVote.is = true
+				votes.userVote.isUpVote = vote.isUpVote
+			}
+			if (vote.isUpVote) {
+				votes.up.count++
+				votes.up.users.push(vote.userId)
+			} else {
+				votes.down.count++
+				votes.down.users.push(vote.userId)
+			}
+		}
 		console.log(votes)
-		// res.send(votes)
-		res.render('que', { title: que.body, que, answers, numUpvotes, numDownvotes })
+		res.render('que', { title: que.body, que, answers, votes })
 	})
 )
 

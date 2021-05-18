@@ -17,12 +17,20 @@ block content
       .que__body
         b= que.body
       .que__votes
-        .que__upvote(title='Upvote')
-          i.far.fa-volume-up
-            p.upClick= numUpvotes
-        .que__downvote(title='Downvote')
-          i.far.fa-volume-mute
-            p.downClick= numDownvotes
+        if votes.userVote.is
+          .que__upvote(title='Upvote')(class= votes.userVote.isUpVote ? "active": undefined)
+            i.far.fa-volume-up
+              p.upClick= votes.up.count
+          .que__downvote(title='Downvote')(class= votes.userVote.isUpVote ? undefined : "active")
+            i.far.fa-volume-mute
+              p.downClick= votes.down.count
+        else
+          .que__upvote(title='Upvote')
+            i.far.fa-volume-up
+              p.upClick= votes.up.count
+          .que__downvote(title='Downvote')
+            i.far.fa-volume-mute
+              p.downClick= votes.down.count
     .container__new-answer
       textarea.answer-text(placeholder="Do you know the answer? Share your knowledge here!")
       .new-answer__buttons
@@ -39,9 +47,9 @@ block content
             .answer__user
               p Answered by
                 b  #{answer.User.username}
+              //- ONLY SHOW IF USER IS ANSWER AUTHOR
               .answer__user-buttons
-                //- i(title='Edit Answer').far.fa-edit.answer__edit
-                //- i(title='Delete Answer').far.fa-trash-alt.answer__delete
+                i(title='Delete Answer').far.fa-trash-alt.answer__delete
             .answer__body
               p= answer.body
             if answer.Comments.length > 0

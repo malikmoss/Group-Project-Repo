@@ -30,7 +30,6 @@ window.addEventListener('DOMContentLoaded', () => {
 								Answered by <b>${answer.username}</b>
 							</p>
 							<div class="answer__user-buttons">
-								<i class="far fa-edit answer__edit" title="Edit Answer"></i>
 								<i class="far fa-trash-alt answer__delete" title="Delete Answer"></i>
 							</div>
 						</div>

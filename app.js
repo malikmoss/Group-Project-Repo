@@ -19,7 +19,7 @@ const app = express()
 // view engine setup
 app.set('view engine', 'pug')
 
-app.use(logger('dev'))
+// app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
@@ -62,9 +62,5 @@ app.use(function (err, req, res, next) {
 	res.status(err.status || 500)
 	res.render('error')
 })
-
-// app.listen(8080, () => {
-// 	console.log('Listening on port 8080...')
-// })
 
 module.exports = app
