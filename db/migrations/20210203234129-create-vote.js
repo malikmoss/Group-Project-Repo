@@ -17,12 +17,14 @@ module.exports = {
 					type: Sequelize.INTEGER,
 					unique: 'votes_unique',
 					references: { model: 'Ques' },
+					onDelete: 'CASCADE',
 				},
 				userId: {
 					allowNull: false,
 					unique: 'votes_unique',
 					type: Sequelize.INTEGER,
 					references: { model: 'Users' },
+					onDelete: 'CASCADE',
 				},
 
 				createdAt: {

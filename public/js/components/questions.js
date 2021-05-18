@@ -18,7 +18,6 @@ window.addEventListener('DOMContentLoaded', () => {
 					if (res.status === 200) return res.json()
 				})
 				.then(que => {
-					console.log(que)
 					const wrapper = document.createElement('div')
 					wrapper.classList.add('que')
 					wrapper.id = `que-${que.question.id}`
@@ -34,9 +33,7 @@ window.addEventListener('DOMContentLoaded', () => {
 								</div>
 							</div>
 							<div class="que__body">
-								<a href="questions/${que.question.id}">
 									<b>${que.question.body}</b>
-								</a>
 							</div>
 							<div class="que__controls">
 								<div class="que__votes">
@@ -59,7 +56,6 @@ window.addEventListener('DOMContentLoaded', () => {
 							</div>
 					`
 					wrapper.innerHTML = html
-					// console.log(wrapper)
 
 					wrapper.querySelector('.que__upvote').addEventListener('click', vote)
 					wrapper.querySelector('.que__downvote').addEventListener('click', vote)
@@ -81,7 +77,6 @@ window.addEventListener('DOMContentLoaded', () => {
 	//Save changes Event Listener
 	function updateQue(e) {
 		const question = e.path[3].children[1]
-		console.log(question.children)
 		const newQue = question.children[0].value
 
 		question.addEventListener('click', redirectToQue)
@@ -141,8 +136,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 		question.removeEventListener('click', redirectToQue)
 
-		console.log(e.path[3].children)
-
 		toggleIcons(editButton, deleteButton)
 
 		editButton.title = 'Save Changes'
@@ -164,7 +157,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	//Delete a Que Event Listener
 	function deleteQue(e) {
 		const id = e.path[3].id.slice(4)
-		console.log(id)
+
 		fetch(`/questions/${id}`, {
 			method: 'DELETE',
 		}).then(res => {
@@ -271,7 +264,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	function redirectToQue(e) {
 		const adj = 10 - e.path.length
 		const path = 2 - adj
-		console.log(e.path[path])
+
 		window.location = `/questions/${e.path[path].id.slice(4)}`
 	}
 	document.querySelectorAll('.que__body').forEach(body => {

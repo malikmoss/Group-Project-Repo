@@ -6,7 +6,7 @@ const { User, Que, Answer, Vote, Comment } = require('../db/models')
 router.get(
 	'/',
 	restoreUser,
-	// requireAuth,
+	requireAuth,
 	asyncHandler(async (req, res) => {
 		const answerQuery = await Answer.findAll({
 			include: [
@@ -24,13 +24,6 @@ router.get(
 			author: answer.User.username,
 			body: answer.body,
 			comments: answer.Comments,
-			// .map(comment => ({
-			//     // id: comment.id,
-			//     body: comment.body,
-			//     authorId: comment.authorId,
-			//     username: comment.User.username
-
-			// }))
 		}))
 		res.send(answers)
 	})
@@ -39,7 +32,7 @@ router.get(
 router.get(
 	'/:id(\\d+)',
 	restoreUser,
-	// requireAuth,
+	requireAuth,
 	asyncHandler(async (req, res) => {
 		const id = req.params.id
 		const answer = await Answer.findByPk(id, { include: [{ model: User, attributes: ['username'] }] })
@@ -49,7 +42,6 @@ router.get(
 			include: [{ model: User, attributes: ['username'] }],
 		})
 		res.send([answer, comments])
-		// res.render('que', { title: que.body, que, answers })
 	})
 )
 
@@ -58,7 +50,6 @@ router.post(
 	restoreUser,
 	requireAuth,
 	asyncHandler(async (req, res) => {
-		console.log(res.locals.user)
 		const answer = await Answer.create({
 			authorId: res.locals.user.id,
 			questionId: req.body.queId,
@@ -67,27 +58,17 @@ router.post(
 		res.json({ answer, username: res.locals.user.username })
 	})
 )
+router.delete(
+	'/:id',
+	restoreUser,
+	requireAuth,
+	asyncHandler(async (req, res) => {
+		const success = await Answer.destroy({
+			where: { id: req.params.id },
+		})
 
-// router.patch(
-// 	'/:id',
-// 	// restoreUser,
-// 	// requireAuth,
-// 	asyncHandler(async (req, res) => {
-// 		const answer = await Answer.findByPk(req.params.id)
-// 		answer.body = answer.body.newAnswer
-// 		await answer.save()
-// 		res.json()
-// 	})
-// )
-
-// router.delete(
-// 	'/:id',
-// 	// restoreUser,
-// 	// requireAuth,
-// 	asyncHandler(async (req, res) => {
-// 		(await Answer.findByPk(req.params.id)).destroy()
-// 		res.json()
-// 	})
-// )
+		res.json(`Deleted ${success} answers`, success ? 200 : 500)
+	})
+)
 
 module.exports = router

@@ -1,5 +1,9 @@
 extends layout
+block head
+  script(src="/js/components/navbar.js")
 block content
   body
     include components/navbar
-    p #{search} not found
+    .container__main
+      p No results found for&nbsp;
+        b "#{search}"
