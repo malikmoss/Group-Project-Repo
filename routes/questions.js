@@ -108,7 +108,7 @@ router.get(
 			},
 			attributes: ['body', 'createdAt', 'id'],
 			include: [
-				{ model: User, attributes: ['username'] },
+				{ model: User, attributes: ['id', 'username'] },
 				{
 					model: Comment,
 					attributes: ['authorId', 'body'],
@@ -221,7 +221,6 @@ function _structureQueryData(quesQuery) {
 	return ques.sort((a, b) => b.numUpvotes - a.numUpvotes)
 }
 
-//GET localhost:8080/questions/
 //POST localhost:8080/questions/
 router.post(
 	'/',

@@ -58,5 +58,17 @@ router.post(
 		res.json({ answer, username: res.locals.user.username })
 	})
 )
+router.delete(
+	'/:id',
+	restoreUser,
+	requireAuth,
+	asyncHandler(async (req, res) => {
+		const success = await Answer.destroy({
+			where: { id: req.params.id },
+		})
+
+		res.json(`Deleted ${success} answers`, success ? 200 : 500)
+	})
+)
 
 module.exports = router

@@ -48,8 +48,9 @@ block content
               p Answered by
                 b  #{answer.User.username}
               //- ONLY SHOW IF USER IS ANSWER AUTHOR
-              .answer__user-buttons
-                i(title='Delete Answer').far.fa-trash-alt.answer__delete
+              if answer.User.id === user.id
+                .answer__user-buttons
+                  i(title='Delete Answer').far.fa-trash-alt.answer__delete
             .answer__body
               p= answer.body
             if answer.Comments.length > 0
