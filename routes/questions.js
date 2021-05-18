@@ -12,7 +12,6 @@ router.get(
 	asyncHandler(async (req, res) => {
 		const quesQuery = await Que.findAll({
 			include: [
-				// { model: Vote, attributes: ['isUpVote']},
 				{ model: User, attributes: ['username', 'id'] },
 				{
 					model: Answer,
@@ -45,8 +44,34 @@ router.get(
 				queId = que.id,
 				queAuthor = que.User.username,
 				queAuthorId = que.User.id
-			let numUpvotes = que.Votes.filter(vote => vote.isUpVote === true).length
-			let numDownvotes = que.Votes.filter(vote => vote.isUpVote === false).length
+			const votes = {
+				userVote: {
+					is: false,
+					isUpVote: false,
+				},
+
+				up: {
+					count: 0,
+					users: [],
+				},
+				down: {
+					count: 0,
+					users: [],
+				},
+			}
+			for (let vote of que.Votes) {
+				if (res.locals.user.id === vote.userId) {
+					votes.userVote.is = true
+					votes.userVote.isUpVote = vote.isUpVote
+				}
+				if (vote.isUpVote) {
+					votes.up.count++
+					votes.up.users.push(vote.userId)
+				} else {
+					votes.down.count++
+					votes.down.users.push(vote.userId)
+				}
+			}
 
 			const answers = que.Answers.map(answer => ({
 				ansAuthorId: answer.authorId,
@@ -58,20 +83,11 @@ router.get(
 				})),
 			}))
 
-			ques.push({ queId, queAuthorId, queAuthor, queBody, answers, numUpvotes, numDownvotes })
+			ques.push({ queId, queAuthorId, queAuthor, queBody, answers, votes })
 		}
 		ques.sort((a, b) => b.numUpvotes / b.numDownvotes - a.numUpvotes / a.numDownvotes)
 
-		// res.send(ques)
-
 		res.render('home', { ques, userVotes })
-		// res.send(quesQuery);
-		// res.send(ques)
-		// const ques = quesQuery.map(que => ({ id: que.id, authorId: que.User.id, author: que.User.username, body: que.body }))
-		// const data = {
-		// 	ques,
-		// }
-		// res.render('home', data)
 	})
 )
 
@@ -92,7 +108,7 @@ router.get(
 			},
 			attributes: ['body', 'createdAt', 'id'],
 			include: [
-				{ model: User, attributes: ['username'] },
+				{ model: User, attributes: ['id', 'username'] },
 				{
 					model: Comment,
 					attributes: ['authorId', 'body'],
@@ -101,23 +117,40 @@ router.get(
 			],
 		})
 		const votesQuery = await Vote.findAll({
-			attributes: ['questionId', 'isUpVote'],
+			attributes: ['userId', 'questionId', 'isUpVote'],
 			where: {
 				questionId: id,
 			},
 		})
+		const votes = {
+			userVote: {
+				is: false,
+				isUpVote: false,
+			},
 
-		// res.send(votesQuery)
-		const votes = votesQuery.map(vote => ({
-			question: vote.questionId,
-			isUpvote: vote.isUpVote,
-		}))
-		let numUpvotes = votes.filter(vote => vote.isUpvote === true).length
-		let numDownvotes = votes.filter(vote => vote.isUpvote === false).length
-
-		console.log(votes)
-		// res.send(votes)
-		res.render('que', { title: que.body, que, answers, numUpvotes, numDownvotes })
+			up: {
+				count: 0,
+				users: [],
+			},
+			down: {
+				count: 0,
+				users: [],
+			},
+		}
+		for (let vote of votesQuery) {
+			if (res.locals.user.id === vote.userId) {
+				votes.userVote.is = true
+				votes.userVote.isUpVote = vote.isUpVote
+			}
+			if (vote.isUpVote) {
+				votes.up.count++
+				votes.up.users.push(vote.userId)
+			} else {
+				votes.down.count++
+				votes.down.users.push(vote.userId)
+			}
+		}
+		res.render('que', { title: que.body, que, answers, votes })
 	})
 )
 
@@ -188,7 +221,6 @@ function _structureQueryData(quesQuery) {
 	return ques.sort((a, b) => b.numUpvotes - a.numUpvotes)
 }
 
-//GET localhost:8080/questions/
 //POST localhost:8080/questions/
 router.post(
 	'/',
