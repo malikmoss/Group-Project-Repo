@@ -33,9 +33,7 @@ window.addEventListener('DOMContentLoaded', () => {
 								</div>
 							</div>
 							<div class="que__body">
-								<a href="questions/${que.question.id}">
 									<b>${que.question.body}</b>
-								</a>
 							</div>
 							<div class="que__controls">
 								<div class="que__votes">
