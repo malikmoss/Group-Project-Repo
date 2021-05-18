@@ -155,7 +155,7 @@ router.get(
 )
 
 //GET localhost:808/questions/search
-router.get('/search', async (req, res) => {
+router.get('/search', restoreUser, requireAuth, async (req, res) => {
 	const searchQuery = req.query.q.trim()
 	let searchResult
 
@@ -169,10 +169,14 @@ router.get('/search', async (req, res) => {
 		})
 	}
 
+	console.log('-------------')
+	console.log(searchQuery)
+	console.log(searchResult)
+	console.log('-------------')
 	if (searchResult.length > 0) {
 		const queIds = searchResult.map(que => que.id)
 		const quesQuery = await _getQues(queIds)
-		const ques = _structureQueryData(quesQuery)
+		const ques = _structureQueryData(quesQuery, res)
 		res.render('home', { ques })
 	} else {
 		res.render('search-not-found', { search: searchQuery })
@@ -200,7 +204,7 @@ async function _getQues(ids) {
 	return quesQuery
 }
 
-function _structureQueryData(quesQuery) {
+function _structureQueryData(quesQuery, res) {
 	const ques = []
 
 	for (let que of quesQuery) {
@@ -208,15 +212,44 @@ function _structureQueryData(quesQuery) {
 			queId = que.id,
 			queAuthor = que.User.username,
 			queAuthorId = que.User.id
-		let numUpvotes = que.Votes.filter(vote => vote.isUpVote === true).length
-		let numDownvotes = que.Votes.filter(vote => vote.isUpVote === false).length
 
 		const answers = que.Answers.map(answer => ({
 			ansAuthorId: answer.authorId,
 			ansAuthor: answer.User.username,
 			ansBody: answer.body,
 		}))
-		ques.push({ queId, queAuthorId, queAuthor, queBody, answers, numUpvotes, numDownvotes })
+
+		const votes = {
+			userVote: {
+				is: false,
+				isUpVote: false,
+			},
+
+			up: {
+				count: 0,
+				users: [],
+			},
+			down: {
+				count: 0,
+				users: [],
+			},
+		}
+		console.log(votes)
+		for (let vote of que.Votes) {
+			if (res.locals.user.id === vote.userId) {
+				votes.userVote.is = true
+				votes.userVote.isUpVote = vote.isUpVote
+			}
+			if (vote.isUpVote) {
+				votes.up.count++
+				votes.up.users.push(vote.userId)
+			} else {
+				votes.down.count++
+				votes.down.users.push(vote.userId)
+			}
+		}
+		console.log(votes)
+		ques.push({ queId, queAuthorId, queAuthor, queBody, answers, votes })
 	}
 	return ques.sort((a, b) => b.numUpvotes - a.numUpvotes)
 }
