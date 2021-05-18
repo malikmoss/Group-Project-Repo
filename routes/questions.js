@@ -150,7 +150,6 @@ router.get(
 				votes.down.users.push(vote.userId)
 			}
 		}
-		console.log(votes)
 		res.render('que', { title: que.body, que, answers, votes })
 	})
 )
